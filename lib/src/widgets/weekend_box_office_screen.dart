@@ -6,7 +6,7 @@ import 'package:kbapp/src/kb/model.dart';
 import 'package:kbapp/src/utils/formatters.dart';
 import 'package:provider/provider.dart';
 
-import 'movie_page.dart';
+import 'movie_screen.dart';
 
 class WeekendModel with ChangeNotifier {
   KbApi kbApi = KbApi();
@@ -69,7 +69,7 @@ class WeekendBoxOffice extends StatelessWidget {
                     onTap: () {
                       Route route = MaterialPageRoute(
                           builder: (context) =>
-                              MoviePage(Movie(
+                              MovieScreen(Movie(
                                 title: weekend.titles[index - 1].title,
                                 //original: weekend.titles[index-1].original,
                                 kbRef: weekend.titles[index - 1].kbRef,

@@ -116,11 +116,12 @@ class KbApi {
   WeekendRecord parseWeekendRec(dom.Element e) {
     var children = e.getElementsByTagName('td');
     final movieRef = children[3].querySelector('b > a');
+    developer.log('${movieRef.text} - ${movieRef.attributes['href'] ?? ''}');
     return WeekendRecord(
       pos: int.parse(children[1].text.trim()),
       title: children[3].text.trim(),
       boxOffice: int.tryParse(trim(children[6].text)) ?? 0,
-      kbRef: movieRef == null ? null : movieRef.attributes['href'],
+      kbRef: movieRef.attributes['href'] ?? '',
     );
   }
 
@@ -177,6 +178,7 @@ class KbApi {
       var document = parse(response.data.toString());
       var posterImg =
       document.querySelector('div.film__picture > figure > img');
+      //developer.log('${response.data}');
       var genres = document
           .querySelectorAll('span[itemprop=' 'genre' ']')
           .map((item) => item.text.trim())

@@ -6,7 +6,7 @@ import 'package:kbapp/src/kb/model.dart';
 import 'package:kbapp/src/utils/formatters.dart';
 import 'package:provider/provider.dart';
 
-import 'movie_page.dart';
+import 'movie_screen.dart';
 
 class YearModel with ChangeNotifier {
   KbApi kbApi = KbApi();
@@ -51,7 +51,7 @@ class YearBoxOffice extends StatelessWidget {
             onTap: () {
               Route route = MaterialPageRoute(
                   builder: (context) =>
-                      MoviePage(Movie(
+                      MovieScreen(Movie(
                         title: year.titles[index].title,
                         original: year.titles[index].original,
                         kbRef: year.titles[index].kbRef,

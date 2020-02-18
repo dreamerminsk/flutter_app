@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kbapp/src/widgets/year_box_office_page.dart';
+import 'package:kbapp/src/widgets/year_box_office_screen.dart';
 import 'package:provider/provider.dart';
 
-import 'src/widgets/box_office_page.dart';
-import 'src/widgets/thursday_box_office_page.dart';
-import 'src/widgets/weekend_box_office_page.dart';
+import 'src/widgets/box_office_screen.dart';
+import 'src/widgets/thursday_box_office_screen.dart';
+import 'src/widgets/weekend_box_office_screen.dart';
 
 void main() => runApp(MyApp());
 

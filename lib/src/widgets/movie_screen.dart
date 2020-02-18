@@ -5,10 +5,10 @@ import 'package:kbapp/src/kb/model.dart';
 
 class MovieModel with ChangeNotifier {}
 
-class MoviePage extends StatelessWidget {
+class MovieScreen extends StatelessWidget {
   final Movie movie;
 
-  MoviePage(this.movie);
+  MovieScreen(this.movie);
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +50,17 @@ class MoviePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Image.network(snapshot.data.poster, width: 128),
+                    Image.network(
+                        snapshot.data.poster ??
+                            'https://img.icity.life/upload/no_poster.jpg',
+                        width: 128),
                     Column(
                         mainAxisSize: MainAxisSize.min, children: <Widget>[]),
                   ],
                 ),
                 Wrap(
                   spacing: 4.0,
-                  children: snapshot.data.genres
+                  children: (snapshot.data.genres ?? <String>[])
                       .map(
                         (g) =>
                         Chip(
@@ -74,7 +77,7 @@ class MoviePage extends StatelessWidget {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(snapshot.data.description,
+                    Text(snapshot.data.description ?? '',
                         style: Theme
                             .of(context)
                             .textTheme

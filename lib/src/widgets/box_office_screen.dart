@@ -8,8 +8,8 @@ import 'package:kbapp/src/services/firestore_service.dart';
 import 'package:provider/provider.dart';
 
 import '../utils/formatters.dart';
-import 'weekend_box_office_page.dart';
-import 'year_box_office_page.dart';
+import 'weekend_box_office_screen.dart';
+import 'year_box_office_screen.dart';
 
 class BoxOfficeHomeModel with ChangeNotifier {
   List<YearRecord> items;
