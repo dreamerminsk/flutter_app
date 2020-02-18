@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:kbapp/src/kb/kb.dart';
 import 'package:kbapp/src/kb/model.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 class MovieModel with ChangeNotifier {}
 
@@ -110,11 +111,8 @@ class MovieScreen extends StatelessWidget {
               child: Text('Error: ${snapshot.error}'),
             );
           } else {
-            children = SizedBox(
-              child: CircularProgressIndicator(),
-              width: 60,
-              height: 60,
-            );
+            children = LoadingIndicator(color: Colors.deepOrange,
+                indicatorType: Indicator.ballSpinFadeLoader);
           }
           return children;
         },
