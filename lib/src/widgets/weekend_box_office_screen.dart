@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kbapp/src/kb/kb.dart';
 import 'package:kbapp/src/kb/model.dart';
 import 'package:kbapp/src/utils/formatters.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 
 import 'movie_screen.dart';
@@ -53,7 +54,10 @@ class WeekendBoxOffice extends StatelessWidget {
   Widget build(BuildContext context) {
     final weekend = Provider.of<WeekendModel>(context);
     return weekend.getLoading()
-        ? Center(child: CircularProgressIndicator())
+        ? Center(
+        child: LoadingIndicator(
+            color: Colors.deepOrange,
+            indicatorType: Indicator.ballSpinFadeLoader))
         : ListView.builder(
             shrinkWrap: true,
             padding: const EdgeInsets.symmetric(vertical: 6.0),
@@ -62,7 +66,8 @@ class WeekendBoxOffice extends StatelessWidget {
               if (index == 0) {
                 return Center(
                     child: Text(
-                        '${fullDateFormatter.format(weekend.weekends[0])}'));
+                      '${fullDateFormatter.format(weekend.weekends[0])}',
+                      style: TextStyle(fontSize: 18),));
               } else
                 return Card(
                   child: InkWell(
