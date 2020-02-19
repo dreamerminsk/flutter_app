@@ -7,13 +7,15 @@ class Movie {
   String poster;
   List<String> genres;
   String description;
+  Map<DateTime, int> thursdayRus;
 
   Movie({@required this.title,
     this.original,
     this.kbRef,
     this.poster,
     this.genres,
-    this.description});
+    this.description,
+    this.thursdayRus});
 }
 
 class Note {
