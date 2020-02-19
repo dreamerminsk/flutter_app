@@ -134,6 +134,32 @@ class MovieScreen extends StatelessWidget {
                           textAlign: TextAlign.start,
                           style: TextStyle(fontSize: 18)),
                     ]),
+                Table(children: <TableRow>[
+                  TableRow(children: <Widget>[
+                    TableCell(
+                      child: Text('Сборы в США:'),
+                    ),
+                    TableCell(
+                      child: Text(''),
+                    ),
+                  ]),
+                  TableRow(children: <Widget>[
+                    TableCell(
+                      child: Text('Международные сборы:'),
+                    ),
+                    TableCell(
+                      child: Text(''),
+                    ),
+                  ]),
+                  TableRow(children: <Widget>[
+                    TableCell(
+                      child: Text('Мировые сборы:'),
+                    ),
+                    TableCell(
+                      child: Text(''),
+                    ),
+                  ]),
+                ]),
               ],
             );
           } else if (snapshot.hasError) {
