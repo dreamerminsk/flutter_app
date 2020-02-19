@@ -93,6 +93,24 @@ class MovieScreen extends StatelessWidget {
                           textAlign: TextAlign.start,
                           style: TextStyle(fontSize: 18)),
                     ]),
+                Table(children: <TableRow>[
+                  TableRow(children: <Widget>[
+                    TableCell(child: Text('Первый четверг:'),),
+                    TableCell(child: Text(''),),
+                  ]),
+                  TableRow(children: <Widget>[
+                    TableCell(child: Text('Первый уик-энд:'),),
+                    TableCell(child: Text(''),),
+                  ]),
+                  TableRow(children: <Widget>[
+                    TableCell(child: Text('Общий сбор:'),),
+                    TableCell(child: Text(''),),
+                  ]),
+                  TableRow(children: <Widget>[
+                    TableCell(child: Text('Зрителей:'),),
+                    TableCell(child: Text(''),),
+                  ]),
+                ]),
                 Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
