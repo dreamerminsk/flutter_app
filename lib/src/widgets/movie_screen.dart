@@ -72,8 +72,7 @@ class MovieScreen extends StatelessWidget {
                             softWrap: false,
                           ),
                         ),
-                  )
-                      .toList(),
+                  ).toList(),
                 ),
                 Column(
                   mainAxisSize: MainAxisSize.min,
