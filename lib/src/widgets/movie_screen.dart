@@ -125,10 +125,30 @@ class MovieScreen extends StatelessWidget {
                   ]),
                   TableRow(children: <Widget>[
                     TableCell(
-                      child: Text('Первый уик-энд:'),
+                      child: snapshot.data.weekendRus.isNotEmpty
+                          ? Text(
+                          'Первый уик-энд (${fullDateFormatter.format(
+                              snapshot.data.weekendRus.entries
+                                  .elementAt(0)
+                                  ?.key)}):',
+                          style: TextStyle(
+                            //color: Colors.white,
+                              fontWeight: FontWeight.w100,
+                              fontSize: 18))
+                          : Text('Первый уик-энд:'),
                     ),
                     TableCell(
-                      child: Text(''),
+                      child: snapshot.data.weekendRus.isNotEmpty
+                          ? Text(
+                          '${decimalFormatter.format(
+                              snapshot.data.weekendRus.entries
+                                  .elementAt(0)
+                                  ?.value)}',
+                          style: TextStyle(
+                            //color: Colors.white,
+                              fontWeight: FontWeight.w100,
+                              fontSize: 18))
+                          : Text(''),
                     ),
                   ]),
                   TableRow(children: <Widget>[

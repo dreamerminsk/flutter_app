@@ -181,21 +181,34 @@ class KbApi {
         desc = desc.substring('Краткое содержание:'.length);
       }
 
-      var ws = Map();
+      var ts = Map();
       document
           .querySelectorAll('li.sbori__item > a.sbori__link')
           .where((element) => element.attributes['href']?.contains('thursday'))
           .forEach((element) {
         var parts = element.attributes['href']?.split('/');
         parts.removeLast();
-        developer.log('MAP: ${parts.last}');
+        var d = fullDateFormatter.parse(parts.last);
+        var m =
+        int.tryParse(trim(element
+            .querySelector('span.sbori__price')
+            .text));
+        ts[d] = m;
+      });
+
+      var ws = Map();
+      document
+          .querySelectorAll('li.sbori__item > a.sbori__link')
+          .where((element) => element.attributes['href']?.contains('weekend'))
+          .forEach((element) {
+        var parts = element.attributes['href']?.split('/');
+        parts.removeLast();
         var d = fullDateFormatter.parse(parts.last);
         var m =
         int.tryParse(trim(element
             .querySelector('span.sbori__price')
             .text));
         ws[d] = m;
-        developer.log('MAP: ${ws}');
       });
 
       return Movie(
@@ -204,7 +217,8 @@ class KbApi {
         poster: '$kbHost${posterImg.attributes['src']}',
         genres: genres,
         description: desc,
-        thursdayRus: ws.cast(),
+        thursdayRus: ts.cast(),
+        weekendRus: ws.cast(),
       );
     } catch (exception) {
       developer.log('MOVIE: ${exception.toString()}');
