@@ -95,20 +95,36 @@ class MovieScreen extends StatelessWidget {
                     ]),
                 Table(children: <TableRow>[
                   TableRow(children: <Widget>[
-                    TableCell(child: Text('Первый четверг:'),),
-                    TableCell(child: Text(''),),
+                    TableCell(
+                      child: Text('Первый четверг:'),
+                    ),
+                    TableCell(
+                      child: Text(''),
+                    ),
                   ]),
                   TableRow(children: <Widget>[
-                    TableCell(child: Text('Первый уик-энд:'),),
-                    TableCell(child: Text(''),),
+                    TableCell(
+                      child: Text('Первый уик-энд:'),
+                    ),
+                    TableCell(
+                      child: Text(''),
+                    ),
                   ]),
                   TableRow(children: <Widget>[
-                    TableCell(child: Text('Общий сбор:'),),
-                    TableCell(child: Text(''),),
+                    TableCell(
+                      child: Text('Общий сбор:'),
+                    ),
+                    TableCell(
+                      child: Text(''),
+                    ),
                   ]),
                   TableRow(children: <Widget>[
-                    TableCell(child: Text('Зрителей:'),),
-                    TableCell(child: Text(''),),
+                    TableCell(
+                      child: Text('Зрителей:'),
+                    ),
+                    TableCell(
+                      child: Text(''),
+                    ),
                   ]),
                 ]),
                 Column(
@@ -129,7 +145,8 @@ class MovieScreen extends StatelessWidget {
               child: Text('Error: ${snapshot.error}'),
             );
           } else {
-            children = LoadingIndicator(color: Colors.deepOrange,
+            children = LoadingIndicator(
+                color: Colors.deepOrange,
                 indicatorType: Indicator.ballSpinFadeLoader);
           }
           return children;
