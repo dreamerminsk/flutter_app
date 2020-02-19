@@ -8,6 +8,8 @@ class Movie {
   List<String> genres;
   String description;
   Map<DateTime, int> thursdayRus;
+  Map<DateTime, int> weekendRus;
+  Map<int, int> totalRus;
 
   Movie({@required this.title,
     this.original,
@@ -15,7 +17,9 @@ class Movie {
     this.poster,
     this.genres,
     this.description,
-    this.thursdayRus});
+    this.thursdayRus,
+    this.weekendRus,
+    this.totalRus});
 }
 
 class Note {
