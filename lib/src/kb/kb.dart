@@ -177,6 +177,9 @@ class KbApi {
       var desc = document
           .querySelector('span[itemprop="description"]')
           .text;
+      if (desc.startsWith('Краткое содержание:')) {
+        desc = desc.substring('Краткое содержание:'.length);
+      }
       return Movie(
         kbRef: ref,
         title: null,
