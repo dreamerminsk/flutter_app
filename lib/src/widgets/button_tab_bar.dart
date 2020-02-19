@@ -58,40 +58,44 @@ class ButtonTabBar extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => ButtonTabBarModel(),
       child: Consumer<ButtonTabBarModel>(
-        builder: (_, model, __) => ButtonBar(
-            alignment: MainAxisAlignment.center,
-            layoutBehavior: ButtonBarLayoutBehavior.constrained,
-            buttonPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-            //buttonHeight: 21,
-            children: <Widget>[
-              RaisedButton(
-                child: Text(model.previousTab == null
-                    ? ''
-                    : '${fullDateFormatter.format(model.previousTab)}'),
-                onPressed: model.previousTab == null
-                    ? null
-                    : () {
-                        model.previous();
-                      },
-              ),
-              RaisedButton(
-                color: Theme.of(context).bottomAppBarColor,
-                //color:Colors.white,
-                //color: Colors.deepOrange,
-                child: Text('${fullDateFormatter.format(model.currentTab)}'),
-                onPressed: model.currentTab == null ? null : () {},
-              ),
-              RaisedButton(
-                child: Text(model.nextTab == null
-                    ? ''
-                    : '${fullDateFormatter.format(model.nextTab)}'),
-                onPressed: model.nextTab == null
-                    ? null
-                    : () {
-                        model.next();
-                      },
-              ),
-            ]),
+        builder: (_, model, __) =>
+            ButtonBar(
+                alignment: MainAxisAlignment.center,
+                layoutBehavior: ButtonBarLayoutBehavior.constrained,
+                buttonPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                //buttonHeight: 21,
+                children: <Widget>[
+                  RaisedButton(
+                    child: Text(model.previousTab == null
+                        ? ''
+                        : '${fullDateFormatter.format(model.previousTab)}'),
+                    onPressed: model.previousTab == null
+                        ? null
+                        : () {
+                      model.previous();
+                    },
+                  ),
+                  RaisedButton(
+                    color: Theme
+                        .of(context)
+                        .bottomAppBarColor,
+                    //color:Colors.white,
+                    //color: Colors.deepOrange,
+                    child: Text(
+                        '${fullDateFormatter.format(model.currentTab)}'),
+                    onPressed: model.currentTab == null ? null : () {},
+                  ),
+                  RaisedButton(
+                    child: Text(model.nextTab == null
+                        ? ''
+                        : '${fullDateFormatter.format(model.nextTab)}'),
+                    onPressed: model.nextTab == null
+                        ? null
+                        : () {
+                      model.next();
+                    },
+                  ),
+                ]),
       ),
     );
   }
