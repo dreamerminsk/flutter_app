@@ -180,15 +180,34 @@ class KbApi {
       if (desc.startsWith('Краткое содержание:')) {
         desc = desc.substring('Краткое содержание:'.length);
       }
+
+      var ws = Map();
+      document
+          .querySelectorAll('li.sbori__item > a.sbori__link')
+          .where((element) => element.attributes['href']?.contains('thursday'))
+          .forEach((element) {
+        var parts = element.attributes['href']?.split('/');
+        parts.removeLast();
+        developer.log('MAP: ${parts.last}');
+        var d = fullDateFormatter.parse(parts.last);
+        var m =
+        int.tryParse(trim(element
+            .querySelector('span.sbori__price')
+            .text));
+        ws[d] = m;
+        developer.log('MAP: ${ws}');
+      });
+
       return Movie(
         kbRef: ref,
         title: null,
         poster: '$kbHost${posterImg.attributes['src']}',
         genres: genres,
         description: desc,
+        thursdayRus: ws.cast(),
       );
     } catch (exception) {
-      developer.log(exception.toString());
+      developer.log('MOVIE: ${exception.toString()}');
       return Movie(kbRef: ref, title: null);
     }
   }

@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:kbapp/src/kb/kb.dart';
 import 'package:kbapp/src/kb/model.dart';
+import 'package:kbapp/src/utils/formatters.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 class MovieModel with ChangeNotifier {}
@@ -72,7 +73,8 @@ class MovieScreen extends StatelessWidget {
                             softWrap: false,
                           ),
                         ),
-                  ).toList(),
+                  )
+                      .toList(),
                 ),
                 Column(
                   mainAxisSize: MainAxisSize.min,
@@ -95,10 +97,30 @@ class MovieScreen extends StatelessWidget {
                 Table(children: <TableRow>[
                   TableRow(children: <Widget>[
                     TableCell(
-                      child: Text('Первый четверг:'),
+                      child: snapshot.data.thursdayRus.isNotEmpty
+                          ? Text(
+                          'Первый четверг (${fullDateFormatter.format(
+                              snapshot.data.thursdayRus.entries
+                                  .elementAt(0)
+                                  ?.key)}):',
+                          style: TextStyle(
+                            //color: Colors.white,
+                              fontWeight: FontWeight.w100,
+                              fontSize: 18))
+                          : Text('Первый четверг:'),
                     ),
                     TableCell(
-                      child: Text(''),
+                      child: snapshot.data.thursdayRus.isNotEmpty
+                          ? Text(
+                          '${decimalFormatter.format(
+                              snapshot.data.thursdayRus.entries
+                                  .elementAt(0)
+                                  ?.value)}',
+                          style: TextStyle(
+                            //color: Colors.white,
+                              fontWeight: FontWeight.w100,
+                              fontSize: 18))
+                          : Text(''),
                     ),
                   ]),
                   TableRow(children: <Widget>[
