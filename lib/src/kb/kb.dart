@@ -38,7 +38,7 @@ class KbApi {
       List<dom.Element> rows =
       document.querySelectorAll('table#krestable > tbody  > tr');
       developer.log('ELEMENTS: ${rows.length}');
-      var years = rows.map(parseYearRec).toList();
+      var years = rows.map(_parseYearRec).toList();
       years.forEach((y) {
         //fs.createYear(y);
       });
@@ -49,7 +49,7 @@ class KbApi {
     }
   }
 
-  YearRecord parseYearRec(dom.Element e) {
+  YearRecord _parseYearRec(dom.Element e) {
     var children = e.getElementsByTagName('td');
     developer.log(trim(children[6].text));
     final movieRef = children[1].querySelector('b > a');
@@ -96,14 +96,14 @@ class KbApi {
       List<dom.Element> rows =
       document.querySelectorAll('table#krestable > tbody  > tr');
       developer.log('ELEMENTS: ${rows.length}');
-      return rows.map(parseWeekendRec).toList();
+      return rows.map(_parseWeekendRec).toList();
     } catch (exception) {
       developer.log(exception.toString());
       return <WeekendRecord>[];
     }
   }
 
-  WeekendRecord parseWeekendRec(dom.Element e) {
+  WeekendRecord _parseWeekendRec(dom.Element e) {
     var children = e.getElementsByTagName('td');
     final movieRef = children[3].querySelector('b > a');
     developer.log('${movieRef.text} - ${movieRef.attributes['href'] ?? ''}');
@@ -147,7 +147,7 @@ class KbApi {
       List<dom.Element> rows = document.querySelectorAll(
           'section.events__table > div > table > tbody > tr[id]');
       developer.log('ELEMENTS: ${rows.length}');
-      var ds = rows.map(parseThursdayRec).toList();
+      var ds = rows.map(_parseThursdayRec).toList();
       return ds;
     } catch (exception) {
       developer.log(exception.toString());
@@ -155,7 +155,7 @@ class KbApi {
     }
   }
 
-  ThursdayRecord parseThursdayRec(dom.Element e) {
+  ThursdayRecord _parseThursdayRec(dom.Element e) {
     var children = e.getElementsByTagName('td');
     return ThursdayRecord(int.parse(children[0].text.trim()),
         children[1].text.trim(), parseInt(children[3].text) ?? 0);
