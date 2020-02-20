@@ -283,14 +283,15 @@ class MovieScreen extends StatelessWidget {
                       child: ListView.builder(
                         itemCount: snapshot.data.directors.length,
                         scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.only(top: 12.0, left: 20.0),
+                        padding: const EdgeInsets.only(top: 0.0, left: 0.0),
                         itemBuilder: (BuildContext context, int index) =>
                             Padding(
-                              padding: const EdgeInsets.only(right: 16.0),
+                              padding: const EdgeInsets.only(right: 8.0),
                               child: Column(
                                 children: [
                                   CircleAvatar(
-                                    backgroundImage: AssetImage(
+                                    backgroundColor: Colors.deepOrange,
+                                    backgroundImage: NetworkImage(
                                         'https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/name-2135195744._CB466677935_.png'),
                                     radius: 40.0,
                                   ),
@@ -327,14 +328,15 @@ class MovieScreen extends StatelessWidget {
                       child: ListView.builder(
                         itemCount: snapshot.data.actors.length,
                         scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.only(top: 12.0, left: 20.0),
+                        padding: const EdgeInsets.only(top: 0.0, left: 0.0),
                         itemBuilder: (BuildContext context, int index) =>
                             Padding(
-                              padding: const EdgeInsets.only(right: 16.0),
+                              padding: const EdgeInsets.only(right: 8.0),
                               child: Column(
                                 children: [
                                   CircleAvatar(
-                                    backgroundImage: AssetImage(
+                                    backgroundColor: Colors.deepOrange,
+                                    backgroundImage: NetworkImage(
                                         'https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/name-2135195744._CB466677935_.png'),
                                     radius: 40.0,
                                   ),

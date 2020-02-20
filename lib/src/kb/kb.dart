@@ -187,8 +187,8 @@ class KbApi {
         poster: '$kbHost${posterImg.attributes['src']}',
         genres: genres,
         description: desc,
-        directors: _parseDirectors(document),
-        actors: _parseActors(document),
+        directors: _parseDirectors(document).cast(),
+        actors: _parseActors(document).cast(),
         thursdayRus: _parseFirstThursday(document) ??
             BoxOfficeItem(
               date: DateTime.now(),
@@ -298,7 +298,7 @@ class KbApi {
           .querySelectorAll('span[itemprop="director"]')
           .map((element) {
         return element.text.trim();
-      });
+      }).toList();
     } catch (e) {
       developer.log('${e.toString()}');
       return <String>[];
@@ -311,7 +311,7 @@ class KbApi {
           .querySelectorAll('span[itemprop="actor"]')
           .map((element) {
         return element.text.trim();
-      });
+      }).toList();
     } catch (e) {
       developer.log('${e.toString()}');
       return <String>[];
