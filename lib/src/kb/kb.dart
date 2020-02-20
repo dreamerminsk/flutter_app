@@ -202,7 +202,7 @@ class KbApi {
               date: DateTime.now(),
               total: 0,
             ),
-        spectaculars: parseTotal(document) ??
+        spectaculars: parseSpectaculars(document) ??
             BoxOfficeItem(
               date: DateTime.now(),
               total: 0,
