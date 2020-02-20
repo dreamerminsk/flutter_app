@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+class BoxOfficeItem {
+  DateTime date;
+  int total;
+
+  BoxOfficeItem({@required this.date, @required this.total});
+}
+
 class Movie {
   String title;
   String original;
@@ -7,9 +14,9 @@ class Movie {
   String poster;
   List<String> genres;
   String description;
-  Map<DateTime, int> thursdayRus;
-  Map<DateTime, int> weekendRus;
-  Map<int, int> totalRus;
+  BoxOfficeItem thursdayRus;
+  BoxOfficeItem weekendRus;
+  BoxOfficeItem totalRus;
 
   Movie({@required this.title,
     this.original,
