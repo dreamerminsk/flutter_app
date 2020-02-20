@@ -187,22 +187,22 @@ class KbApi {
         poster: '$kbHost${posterImg.attributes['src']}',
         genres: genres,
         description: desc,
-        thursdayRus: parseFirstThursday(document) ??
+        thursdayRus: _parseFirstThursday(document) ??
             BoxOfficeItem(
               date: DateTime.now(),
               total: 0,
             ),
-        weekendRus: parseFirstWeekend(document) ??
+        weekendRus: _parseFirstWeekend(document) ??
             BoxOfficeItem(
               date: DateTime.now(),
               total: 0,
             ),
-        totalRus: parseTotal(document) ??
+        totalRus: _parseTotal(document) ??
             BoxOfficeItem(
               date: DateTime.now(),
               total: 0,
             ),
-        spectaculars: parseSpectaculars(document) ??
+        spectaculars: _parseSpectaculars(document) ??
             BoxOfficeItem(
               date: DateTime.now(),
               total: 0,
@@ -214,7 +214,7 @@ class KbApi {
     }
   }
 
-  BoxOfficeItem parseFirstThursday(dom.Document document) {
+  BoxOfficeItem _parseFirstThursday(dom.Document document) {
     try {
       return document
           .querySelectorAll('li.sbori__item > a.sbori__link')
@@ -235,7 +235,7 @@ class KbApi {
     }
   }
 
-  BoxOfficeItem parseFirstWeekend(dom.Document document) {
+  BoxOfficeItem _parseFirstWeekend(dom.Document document) {
     try {
       return document
           .querySelectorAll('li.sbori__item > a.sbori__link')
@@ -256,7 +256,7 @@ class KbApi {
     }
   }
 
-  BoxOfficeItem parseTotal(dom.Document document) {
+  BoxOfficeItem _parseTotal(dom.Document document) {
     try {
       return document
           .querySelectorAll('li.sbori__item')
@@ -275,7 +275,7 @@ class KbApi {
     }
   }
 
-  BoxOfficeItem parseSpectaculars(dom.Document document) {
+  BoxOfficeItem _parseSpectaculars(dom.Document document) {
     try {
       return document
           .querySelectorAll('li.sbori__item')
