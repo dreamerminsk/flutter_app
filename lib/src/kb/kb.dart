@@ -181,35 +181,43 @@ class KbApi {
         desc = desc.substring('Краткое содержание:'.length);
       }
 
-      var ts = Map();
-      document
+      var ts = document
           .querySelectorAll('li.sbori__item > a.sbori__link')
-          .where((element) => element.attributes['href']?.contains('thursday'))
-          .forEach((element) {
+          .where(
+              (element) => element.attributes['href']?.contains('thursday'))
+          .map((element) {
         var parts = element.attributes['href']?.split('/');
         parts.removeLast();
         var d = fullDateFormatter.parse(parts.last);
-        var m =
-        int.tryParse(trim(element
-            .querySelector('span.sbori__price')
-            .text));
-        ts[d] = m;
-      });
+        var m = int.tryParse(
+            trim(element
+                .querySelector('span.sbori__price')
+                .text));
+        return BoxOfficeItem(date: d, total: m);
+      }).first ??
+          BoxOfficeItem(
+            date: DateTime.now(),
+            total: 0,
+          );
 
-      var ws = Map();
-      document
+      var ws = document
           .querySelectorAll('li.sbori__item > a.sbori__link')
-          .where((element) => element.attributes['href']?.contains('weekend'))
-          .forEach((element) {
+          .where(
+              (element) => element.attributes['href']?.contains('weekend'))
+          .map((element) {
         var parts = element.attributes['href']?.split('/');
         parts.removeLast();
         var d = fullDateFormatter.parse(parts.last);
-        var m =
-        int.tryParse(trim(element
-            .querySelector('span.sbori__price')
-            .text));
-        ws[d] = m;
-      });
+        var m = int.tryParse(
+            trim(element
+                .querySelector('span.sbori__price')
+                .text));
+        return BoxOfficeItem(date: d, total: m);
+      }).first ??
+          BoxOfficeItem(
+            date: DateTime.now(),
+            total: 0,
+          );
 
       return Movie(
         kbRef: ref,
@@ -217,8 +225,8 @@ class KbApi {
         poster: '$kbHost${posterImg.attributes['src']}',
         genres: genres,
         description: desc,
-        thursdayRus: ts.cast(),
-        weekendRus: ws.cast(),
+        thursdayRus: ts,
+        weekendRus: ws,
       );
     } catch (exception) {
       developer.log('MOVIE: ${exception.toString()}');

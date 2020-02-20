@@ -108,58 +108,56 @@ class MovieScreen extends StatelessWidget {
                 Table(children: <TableRow>[
                   TableRow(children: <Widget>[
                     TableCell(
-                      child: snapshot.data.thursdayRus.isNotEmpty
-                          ? Text(
-                          'Первый четверг (${fullDateFormatter.format(
-                              snapshot.data.thursdayRus.entries
-                                  .elementAt(0)
-                                  ?.key)}):',
+                      child: Text('Первый четверг',
                           style: TextStyle(
                             //color: Colors.white,
                               fontWeight: FontWeight.w100,
-                              fontSize: 18))
-                          : Text('Первый четверг:'),
+                              fontSize: 18)),
                     ),
                     TableCell(
-                      child: snapshot.data.thursdayRus.isNotEmpty
-                          ? Text(
-                          '${decimalFormatter.format(
-                              snapshot.data.thursdayRus.entries
-                                  .elementAt(0)
-                                  ?.value)}',
+                      child: Text(
+                          '${fullDateFormatter.format(
+                              snapshot.data.thursdayRus.date)}):',
                           style: TextStyle(
                             //color: Colors.white,
                               fontWeight: FontWeight.w100,
-                              fontSize: 18))
-                          : Text(''),
+                              fontSize: 18)),
+                    ),
+                    TableCell(
+                      child: Text(
+                          '${decimalFormatter.format(
+                              snapshot.data.thursdayRus.total)}',
+                          style: TextStyle(
+                            //color: Colors.white,
+                              fontWeight: FontWeight.w100,
+                              fontSize: 18)),
                     ),
                   ]),
                   TableRow(children: <Widget>[
                     TableCell(
-                      child: snapshot.data.weekendRus.isNotEmpty
-                          ? Text(
-                          'Первый уик-энд (${fullDateFormatter.format(
-                              snapshot.data.weekendRus.entries
-                                  .elementAt(0)
-                                  ?.key)}):',
+                      child: Text('Первый уик-энд',
                           style: TextStyle(
                             //color: Colors.white,
                               fontWeight: FontWeight.w100,
-                              fontSize: 18))
-                          : Text('Первый уик-энд:'),
+                              fontSize: 18)),
                     ),
                     TableCell(
-                      child: snapshot.data.weekendRus.isNotEmpty
-                          ? Text(
-                          '${decimalFormatter.format(
-                              snapshot.data.weekendRus.entries
-                                  .elementAt(0)
-                                  ?.value)}',
+                      child: Text(
+                          '${fullDateFormatter.format(
+                              snapshot.data.weekendRus.date)}',
                           style: TextStyle(
                             //color: Colors.white,
                               fontWeight: FontWeight.w100,
-                              fontSize: 18))
-                          : Text(''),
+                              fontSize: 18)),
+                    ),
+                    TableCell(
+                      child: Text(
+                          '${decimalFormatter.format(
+                              snapshot.data.weekendRus.total)}',
+                          style: TextStyle(
+                            //color: Colors.white,
+                              fontWeight: FontWeight.w100,
+                              fontSize: 18)),
                     ),
                   ]),
                   TableRow(children: <Widget>[
