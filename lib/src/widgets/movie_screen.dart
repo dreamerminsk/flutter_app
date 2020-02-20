@@ -7,20 +7,16 @@ import 'package:loading_indicator/loading_indicator.dart';
 
 class MovieModel with ChangeNotifier {}
 
-
-
 class MovieScreenV2 extends StatelessWidget {
-final Movie movie;
+  final Movie movie;
 
-MovieScreenV2(this.movie);
+  MovieScreenV2(this.movie);
 
-@override
-Widget build(BuildContext context) {
-
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
+  }
 }
-}
-
-
 
 class MovieScreen extends StatelessWidget {
   final Movie movie;
