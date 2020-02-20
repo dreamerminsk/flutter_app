@@ -197,6 +197,16 @@ class KbApi {
               date: DateTime.now(),
               total: 0,
             ),
+        totalRus: parseTotal(document) ??
+            BoxOfficeItem(
+              date: DateTime.now(),
+              total: 0,
+            ),
+        spectaculars: parseTotal(document) ??
+            BoxOfficeItem(
+              date: DateTime.now(),
+              total: 0,
+            ),
       );
     } catch (exception) {
       developer.log('MOVIE: ${exception.toString()}');
@@ -238,6 +248,42 @@ class KbApi {
         int.tryParse(trim(element
             .querySelector('span.sbori__price')
             .text));
+        return BoxOfficeItem(date: d, total: m);
+      })?.elementAt(0);
+    } catch (e) {
+      developer.log('${e.toString()}');
+      return null;
+    }
+  }
+
+  BoxOfficeItem parseTotal(dom.Document document) {
+    try {
+      return document
+          .querySelectorAll('li.sbori__item')
+          .where((element) => element.text?.contains('Общий сбор:'))
+          .map((element) => element.querySelector('span.sbori__price'))
+          .map((element) {
+        var parts = element.text?.split('\$');
+        //parts.removeLast();
+        var d = DateTime.now();
+        var m = parseInt(parts.first);
+        return BoxOfficeItem(date: d, total: m);
+      })?.elementAt(0);
+    } catch (e) {
+      developer.log('${e.toString()}');
+      return null;
+    }
+  }
+
+  BoxOfficeItem parseSpectaculars(dom.Document document) {
+    try {
+      return document
+          .querySelectorAll('li.sbori__item')
+          .where((element) => element.text?.contains('Зрителей:'))
+          .map((element) => element.querySelector('span.sbori__price'))
+          .map((element) {
+        var d = DateTime.now();
+        var m = parseInt(element.text);
         return BoxOfficeItem(date: d, total: m);
       })?.elementAt(0);
     } catch (e) {

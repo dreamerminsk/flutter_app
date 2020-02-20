@@ -17,6 +17,7 @@ class Movie {
   BoxOfficeItem thursdayRus;
   BoxOfficeItem weekendRus;
   BoxOfficeItem totalRus;
+  BoxOfficeItem spectaculars;
 
   Movie({@required this.title,
     this.original,
@@ -26,7 +27,8 @@ class Movie {
     this.description,
     this.thursdayRus,
     this.weekendRus,
-    this.totalRus});
+    this.totalRus,
+    this.spectaculars});
 }
 
 class Note {

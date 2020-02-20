@@ -56,7 +56,10 @@ class MovieScreen extends StatelessWidget {
           Widget children;
           if (snapshot.hasData) {
             children = ListView(
-              padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0,),
+              padding: EdgeInsets.symmetric(
+                horizontal: 5.0,
+                vertical: 5.0,
+              ),
               shrinkWrap: true,
               children: <Widget>[
                 Row(
@@ -175,14 +178,20 @@ class MovieScreen extends StatelessWidget {
                               fontSize: 18)),
                     ),
                     TableCell(
-                      child: Text('',
+                      child: Text(
+                          '${fullDateFormatter.format(
+                              snapshot.data.totalRus?.date ?? DateTime.now())}',
+                          textAlign: TextAlign.end,
                           style: TextStyle(
                             //color: Colors.white,
                               fontWeight: FontWeight.w100,
                               fontSize: 18)),
                     ),
                     TableCell(
-                      child: Text('',
+                      child: Text(
+                          '${decimalFormatter.format(
+                              snapshot.data.totalRus?.total ?? 0)}',
+                          textAlign: TextAlign.end,
                           style: TextStyle(
                             //color: Colors.white,
                               fontWeight: FontWeight.w100,
@@ -198,14 +207,21 @@ class MovieScreen extends StatelessWidget {
                               fontSize: 18)),
                     ),
                     TableCell(
-                      child: Text('',
+                      child: Text(
+                          '${fullDateFormatter.format(
+                              snapshot.data.spectaculars?.date ??
+                                  DateTime.now())}',
+                          textAlign: TextAlign.end,
                           style: TextStyle(
                             //color: Colors.white,
                               fontWeight: FontWeight.w100,
                               fontSize: 18)),
                     ),
                     TableCell(
-                      child: Text('',
+                      child: Text(
+                          '${decimalFormatter.format(
+                              snapshot.data.spectaculars?.total ?? 0)}',
+                          textAlign: TextAlign.end,
                           style: TextStyle(
                             //color: Colors.white,
                               fontWeight: FontWeight.w100,
