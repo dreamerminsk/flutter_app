@@ -187,6 +187,8 @@ class KbApi {
         poster: '$kbHost${posterImg.attributes['src']}',
         genres: genres,
         description: desc,
+        directors: _parseDirectors(document),
+        actors: _parseActors(document),
         thursdayRus: _parseFirstThursday(document) ??
             BoxOfficeItem(
               date: DateTime.now(),
@@ -223,8 +225,7 @@ class KbApi {
         var parts = element.attributes['href']?.split('/');
         parts.removeLast();
         var d = fullDateFormatter.parse(parts.last);
-        var m =
-        parseInt(element
+        var m = parseInt(element
             .querySelector('span.sbori__price')
             .text);
         return BoxOfficeItem(date: d, total: m);
@@ -244,8 +245,7 @@ class KbApi {
         var parts = element.attributes['href']?.split('/');
         parts.removeLast();
         var d = fullDateFormatter.parse(parts.last);
-        var m =
-        parseInt(element
+        var m = parseInt(element
             .querySelector('span.sbori__price')
             .text);
         return BoxOfficeItem(date: d, total: m);
@@ -289,6 +289,32 @@ class KbApi {
     } catch (e) {
       developer.log('${e.toString()}');
       return null;
+    }
+  }
+
+  List<String> _parseDirectors(dom.Document document) {
+    try {
+      return document
+          .querySelectorAll('span[itemprop="director"]')
+          .map((element) {
+        return element.text.trim();
+      });
+    } catch (e) {
+      developer.log('${e.toString()}');
+      return <String>[];
+    }
+  }
+
+  List<String> _parseActors(dom.Document document) {
+    try {
+      return document
+          .querySelectorAll('span[itemprop="actor"]')
+          .map((element) {
+        return element.text.trim();
+      });
+    } catch (e) {
+      developer.log('${e.toString()}');
+      return <String>[];
     }
   }
 }

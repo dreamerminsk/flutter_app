@@ -1,5 +1,7 @@
 import 'dart:collection';
+import 'dart:developer' as developer;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kbapp/src/kb/kb.dart';
 import 'package:kbapp/src/kb/model.dart';
@@ -23,19 +25,23 @@ class YearModel with ChangeNotifier {
 
   UnmodifiableListView<YearRecord> get titles => UnmodifiableListView(_titles);
 
-  void load() async {
+
+  Future<bool> load() async {
     _loading = true;
     notifyListeners();
     try {
       _titles.clear();
+      developer.log('load');
       _titles.addAll(await kbApi.getYearBoxOffice());
       notifyListeners();
     } catch (exception) {
       _loading = false;
       notifyListeners();
     }
+    return _loading;
   }
 }
+
 
 class YearBoxOffice extends StatelessWidget {
   @override

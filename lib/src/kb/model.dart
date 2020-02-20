@@ -14,6 +14,8 @@ class Movie {
   String poster;
   List<String> genres;
   String description;
+  List<String> directors;
+  List<String> actors;
   BoxOfficeItem thursdayRus;
   BoxOfficeItem weekendRus;
   BoxOfficeItem totalRus;
@@ -25,6 +27,8 @@ class Movie {
     this.poster,
     this.genres,
     this.description,
+    this.directors,
+    this.actors,
     this.thursdayRus,
     this.weekendRus,
     this.totalRus,

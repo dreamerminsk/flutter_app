@@ -263,6 +263,93 @@ class MovieScreen extends StatelessWidget {
                     ),
                   ]),
                 ]),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20.0, horizontal: 0.0),
+                      child: Text(
+                        'Режиссёр(ы)',
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .subtitle1
+                            .copyWith(fontSize: 18.0),
+                      ),
+                    ),
+                    SizedBox.fromSize(
+                      size: const Size.fromHeight(120.0),
+                      child: ListView.builder(
+                        itemCount: snapshot.data.directors.length,
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.only(top: 12.0, left: 20.0),
+                        itemBuilder: (BuildContext context, int index) =>
+                            Padding(
+                              padding: const EdgeInsets.only(right: 16.0),
+                              child: Column(
+                                children: [
+                                  CircleAvatar(
+                                    backgroundImage: AssetImage(
+                                        'https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/name-2135195744._CB466677935_.png'),
+                                    radius: 40.0,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Text(
+                                        snapshot.data.directors.elementAt(
+                                            index)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20.0, horizontal: 0.0),
+                      child: Text(
+                        'Актёры',
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .subtitle1
+                            .copyWith(fontSize: 18.0),
+                      ),
+                    ),
+                    SizedBox.fromSize(
+                      size: const Size.fromHeight(120.0),
+                      child: ListView.builder(
+                        itemCount: snapshot.data.actors.length,
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.only(top: 12.0, left: 20.0),
+                        itemBuilder: (BuildContext context, int index) =>
+                            Padding(
+                              padding: const EdgeInsets.only(right: 16.0),
+                              child: Column(
+                                children: [
+                                  CircleAvatar(
+                                    backgroundImage: AssetImage(
+                                        'https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/name-2135195744._CB466677935_.png'),
+                                    radius: 40.0,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child:
+                                    Text(snapshot.data.actors.elementAt(index)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             );
           } else if (snapshot.hasError) {
