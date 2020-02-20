@@ -56,12 +56,12 @@ class KbApi {
     return YearRecord(
       pos: int.parse(children[0].text.trim()),
       title: children[1].text.trim(),
-      boxOffice: int.tryParse(trim(children[5].text)) ?? 0,
-      boxOfficeUsd: int.tryParse(trim(children[6].text)) ?? 0,
+      boxOffice: parseInt(children[5].text) ?? 0,
+      boxOfficeUsd: parseInt(children[6].text) ?? 0,
       original: children[2].text.trim(),
       distributor: children[3].text.trim(),
-      screens: int.tryParse(trim(children[4].text)) ?? 0,
-      spectaculars: int.tryParse(trim(children[7].text)) ?? 0,
+      screens: parseInt(children[4].text) ?? 0,
+      spectaculars: parseInt(children[7].text) ?? 0,
       kbRef: movieRef == null ? null : movieRef.attributes['href'],
     );
   }
@@ -110,7 +110,7 @@ class KbApi {
     return WeekendRecord(
       pos: int.parse(children[1].text.trim()),
       title: children[3].text.trim(),
-      boxOffice: int.tryParse(trim(children[6].text)) ?? 0,
+      boxOffice: parseInt(children[6].text) ?? 0,
       kbRef: movieRef.attributes['href'] ?? '',
     );
   }
@@ -158,7 +158,7 @@ class KbApi {
   ThursdayRecord parseThursdayRec(dom.Element e) {
     var children = e.getElementsByTagName('td');
     return ThursdayRecord(int.parse(children[0].text.trim()),
-        children[1].text.trim(), int.tryParse(trim(children[3].text)) ?? 0);
+        children[1].text.trim(), parseInt(children[3].text) ?? 0);
   }
 
   Future<Movie> getMovie(String ref) async {
@@ -224,9 +224,9 @@ class KbApi {
         parts.removeLast();
         var d = fullDateFormatter.parse(parts.last);
         var m =
-        int.tryParse(trim(element
+        parseInt(element
             .querySelector('span.sbori__price')
-            .text));
+            .text);
         return BoxOfficeItem(date: d, total: m);
       })?.elementAt(0);
     } catch (e) {
@@ -245,9 +245,9 @@ class KbApi {
         parts.removeLast();
         var d = fullDateFormatter.parse(parts.last);
         var m =
-        int.tryParse(trim(element
+        parseInt(element
             .querySelector('span.sbori__price')
-            .text));
+            .text);
         return BoxOfficeItem(date: d, total: m);
       })?.elementAt(0);
     } catch (e) {
