@@ -181,56 +181,68 @@ class KbApi {
         desc = desc.substring('Краткое содержание:'.length);
       }
 
-      var ts = document
-          .querySelectorAll('li.sbori__item > a.sbori__link')
-          .where(
-              (element) => element.attributes['href']?.contains('thursday'))
-          .map((element) {
-        var parts = element.attributes['href']?.split('/');
-        parts.removeLast();
-        var d = fullDateFormatter.parse(parts.last);
-        var m = int.tryParse(
-            trim(element
-                .querySelector('span.sbori__price')
-                .text));
-        return BoxOfficeItem(date: d, total: m);
-      }).first ??
-          BoxOfficeItem(
-            date: DateTime.now(),
-            total: 0,
-          );
-
-      var ws = document
-          .querySelectorAll('li.sbori__item > a.sbori__link')
-          .where(
-              (element) => element.attributes['href']?.contains('weekend'))
-          .map((element) {
-        var parts = element.attributes['href']?.split('/');
-        parts.removeLast();
-        var d = fullDateFormatter.parse(parts.last);
-        var m = int.tryParse(
-            trim(element
-                .querySelector('span.sbori__price')
-                .text));
-        return BoxOfficeItem(date: d, total: m);
-      }).first ??
-          BoxOfficeItem(
-            date: DateTime.now(),
-            total: 0,
-          );
-
       return Movie(
         kbRef: ref,
         title: null,
         poster: '$kbHost${posterImg.attributes['src']}',
         genres: genres,
         description: desc,
-        thursdayRus: ts,
-        weekendRus: ws,
+        thursdayRus: parseFirstThursday(document) ??
+            BoxOfficeItem(
+              date: DateTime.now(),
+              total: 0,
+            ),
+        weekendRus: parseFirstWeekend(document) ??
+            BoxOfficeItem(
+              date: DateTime.now(),
+              total: 0,
+            ),
       );
     } catch (exception) {
       developer.log('MOVIE: ${exception.toString()}');
       return Movie(kbRef: ref, title: null);
+    }
+  }
+
+  BoxOfficeItem parseFirstThursday(dom.Document document) {
+    try {
+      return document
+          .querySelectorAll('li.sbori__item > a.sbori__link')
+          .where((element) => element.attributes['href']?.contains('thursday'))
+          .map((element) {
+        var parts = element.attributes['href']?.split('/');
+        parts.removeLast();
+        var d = fullDateFormatter.parse(parts.last);
+        var m =
+        int.tryParse(trim(element
+            .querySelector('span.sbori__price')
+            .text));
+        return BoxOfficeItem(date: d, total: m);
+      })?.elementAt(0);
+    } catch (e) {
+      developer.log('${e.toString()}');
+      return null;
+    }
+  }
+
+  BoxOfficeItem parseFirstWeekend(dom.Document document) {
+    try {
+      return document
+          .querySelectorAll('li.sbori__item > a.sbori__link')
+          .where((element) => element.attributes['href']?.contains('weekend'))
+          .map((element) {
+        var parts = element.attributes['href']?.split('/');
+        parts.removeLast();
+        var d = fullDateFormatter.parse(parts.last);
+        var m =
+        int.tryParse(trim(element
+            .querySelector('span.sbori__price')
+            .text));
+        return BoxOfficeItem(date: d, total: m);
+      })?.elementAt(0);
+    } catch (e) {
+      developer.log('${e.toString()}');
+      return null;
     }
   }
 }

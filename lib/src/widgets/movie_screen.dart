@@ -117,7 +117,9 @@ class MovieScreen extends StatelessWidget {
                     TableCell(
                       child: Text(
                           '${fullDateFormatter.format(
-                              snapshot.data.thursdayRus.date)}):',
+                              snapshot.data.thursdayRus?.date ??
+                                  DateTime.now())}',
+                          textAlign: TextAlign.end,
                           style: TextStyle(
                             //color: Colors.white,
                               fontWeight: FontWeight.w100,
@@ -126,7 +128,8 @@ class MovieScreen extends StatelessWidget {
                     TableCell(
                       child: Text(
                           '${decimalFormatter.format(
-                              snapshot.data.thursdayRus.total)}',
+                              snapshot.data.thursdayRus?.total ?? 0)}',
+                          textAlign: TextAlign.end,
                           style: TextStyle(
                             //color: Colors.white,
                               fontWeight: FontWeight.w100,
@@ -144,7 +147,9 @@ class MovieScreen extends StatelessWidget {
                     TableCell(
                       child: Text(
                           '${fullDateFormatter.format(
-                              snapshot.data.weekendRus.date)}',
+                              snapshot.data.weekendRus?.date ??
+                                  DateTime.now())}',
+                          textAlign: TextAlign.end,
                           style: TextStyle(
                             //color: Colors.white,
                               fontWeight: FontWeight.w100,
@@ -153,7 +158,8 @@ class MovieScreen extends StatelessWidget {
                     TableCell(
                       child: Text(
                           '${decimalFormatter.format(
-                              snapshot.data.weekendRus.total)}',
+                              snapshot.data.weekendRus?.total ?? 0)}',
+                          textAlign: TextAlign.end,
                           style: TextStyle(
                             //color: Colors.white,
                               fontWeight: FontWeight.w100,
@@ -162,18 +168,48 @@ class MovieScreen extends StatelessWidget {
                   ]),
                   TableRow(children: <Widget>[
                     TableCell(
-                      child: Text('Общий сбор:'),
+                      child: Text('Общий сбор',
+                          style: TextStyle(
+                            //color: Colors.white,
+                              fontWeight: FontWeight.w100,
+                              fontSize: 18)),
                     ),
                     TableCell(
-                      child: Text(''),
+                      child: Text('',
+                          style: TextStyle(
+                            //color: Colors.white,
+                              fontWeight: FontWeight.w100,
+                              fontSize: 18)),
+                    ),
+                    TableCell(
+                      child: Text('',
+                          style: TextStyle(
+                            //color: Colors.white,
+                              fontWeight: FontWeight.w100,
+                              fontSize: 18)),
                     ),
                   ]),
                   TableRow(children: <Widget>[
                     TableCell(
-                      child: Text('Зрителей:'),
+                      child: Text('Зрители',
+                          style: TextStyle(
+                            //color: Colors.white,
+                              fontWeight: FontWeight.w100,
+                              fontSize: 18)),
                     ),
                     TableCell(
-                      child: Text(''),
+                      child: Text('',
+                          style: TextStyle(
+                            //color: Colors.white,
+                              fontWeight: FontWeight.w100,
+                              fontSize: 18)),
+                    ),
+                    TableCell(
+                      child: Text('',
+                          style: TextStyle(
+                            //color: Colors.white,
+                              fontWeight: FontWeight.w100,
+                              fontSize: 18)),
                     ),
                   ]),
                 ]),
@@ -181,14 +217,14 @@ class MovieScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(height: 8.0),
-                      Text('Касса мирового проката:',
+                      Text('Касса мирового проката',
                           textAlign: TextAlign.start,
                           style: TextStyle(fontSize: 18)),
                     ]),
                 Table(children: <TableRow>[
                   TableRow(children: <Widget>[
                     TableCell(
-                      child: Text('Сборы в США:'),
+                      child: Text('Сборы в США'),
                     ),
                     TableCell(
                       child: Text(''),
