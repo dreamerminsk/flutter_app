@@ -56,7 +56,7 @@ class MovieScreen extends StatelessWidget {
           Widget children;
           if (snapshot.hasData) {
             children = ListView(
-              padding: EdgeInsets.symmetric(horizontal: 4.0),
+              padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0,),
               shrinkWrap: true,
               children: <Widget>[
                 Row(
@@ -66,7 +66,7 @@ class MovieScreen extends StatelessWidget {
                     Image.network(
                         snapshot.data.poster ??
                             'https://img.icity.life/upload/no_poster.jpg',
-                        width: 128),
+                        width: 140),
                     Column(
                         mainAxisSize: MainAxisSize.min, children: <Widget>[]),
                   ],
@@ -94,7 +94,7 @@ class MovieScreen extends StatelessWidget {
                         style: Theme
                             .of(context)
                             .textTheme
-                            .subtitle2)
+                            .bodyText2)
                   ],
                 ),
                 Column(
