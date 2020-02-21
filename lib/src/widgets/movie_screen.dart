@@ -36,22 +36,7 @@ class MovieScreenV2 extends StatelessWidget {
               Column(mainAxisSize: MainAxisSize.min, children: <Widget>[]),
             ],
           ),
-          Wrap(
-            spacing: 4.0,
-            children: (movie.genres ?? <String>[])
-                .map(
-                  (g) =>
-                  Chip(
-                    label: AutoSizeText(
-                      g,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      softWrap: false,
-                    ),
-                  ),
-            )
-                .toList(),
-          ),
+          Genres(movie: movie),
           Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -316,6 +301,35 @@ class MovieScreenV2 extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class Genres extends StatelessWidget {
+  const Genres({
+    Key key,
+    @required this.movie,
+  }) : super(key: key);
+
+  final Movie movie;
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 4.0,
+      children: (movie.genres ?? <String>[])
+          .map(
+            (g) =>
+            Chip(
+              label: AutoSizeText(
+                g,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                softWrap: false,
+              ),
+            ),
+      )
+          .toList(),
     );
   }
 }
