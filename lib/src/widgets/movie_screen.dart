@@ -14,7 +14,342 @@ class MovieScreenV2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: MovieTitle(movie: movie),
+        actions: <Widget>[new Icon(Icons.more_vert)],
+      ),
+      body: ListView(
+        padding: EdgeInsets.symmetric(
+          horizontal: 5.0,
+          vertical: 5.0,
+        ),
+        shrinkWrap: true,
+        children: <Widget>[
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Image.network(
+                  movie.poster ?? 'https://img.icity.life/upload/no_poster.jpg',
+                  width: 140),
+              Column(mainAxisSize: MainAxisSize.min, children: <Widget>[]),
+            ],
+          ),
+          Wrap(
+            spacing: 4.0,
+            children: (movie.genres ?? <String>[])
+                .map(
+                  (g) =>
+                  Chip(
+                    label: AutoSizeText(
+                      g,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      softWrap: false,
+                    ),
+                  ),
+            )
+                .toList(),
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(movie.description ?? '',
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .bodyText2)
+            ],
+          ),
+          Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: 8.0),
+                Text('Кассовые сборы в России и СНГ:',
+                    textAlign: TextAlign.start, style: TextStyle(fontSize: 18)),
+              ]),
+          Table(children: <TableRow>[
+            TableRow(children: <Widget>[
+              TableCell(
+                child: Text('Первый четверг',
+                    style: TextStyle(
+                      //color: Colors.white,
+                        fontWeight: FontWeight.w100,
+                        fontSize: 18)),
+              ),
+              TableCell(
+                child: Text(
+                    '${fullDateFormatter.format(
+                        movie.thursdayRus?.date ?? DateTime.now())}',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                      //color: Colors.white,
+                        fontWeight: FontWeight.w100,
+                        fontSize: 18)),
+              ),
+              TableCell(
+                child: Text(
+                    '${decimalFormatter.format(movie.thursdayRus?.total ?? 0)}',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                      //color: Colors.white,
+                        fontWeight: FontWeight.w100,
+                        fontSize: 18)),
+              ),
+            ]),
+            TableRow(children: <Widget>[
+              TableCell(
+                child: Text('Первый уик-энд',
+                    style: TextStyle(
+                      //color: Colors.white,
+                        fontWeight: FontWeight.w100,
+                        fontSize: 18)),
+              ),
+              TableCell(
+                child: Text(
+                    '${fullDateFormatter.format(
+                        movie.weekendRus?.date ?? DateTime.now())}',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                      //color: Colors.white,
+                        fontWeight: FontWeight.w100,
+                        fontSize: 18)),
+              ),
+              TableCell(
+                child: Text(
+                    '${decimalFormatter.format(movie.weekendRus?.total ?? 0)}',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                      //color: Colors.white,
+                        fontWeight: FontWeight.w100,
+                        fontSize: 18)),
+              ),
+            ]),
+            TableRow(children: <Widget>[
+              TableCell(
+                child: Text('Общий сбор',
+                    style: TextStyle(
+                      //color: Colors.white,
+                        fontWeight: FontWeight.w100,
+                        fontSize: 18)),
+              ),
+              TableCell(
+                child: Text(
+                    '${fullDateFormatter.format(
+                        movie.totalRus?.date ?? DateTime.now())}',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                      //color: Colors.white,
+                        fontWeight: FontWeight.w100,
+                        fontSize: 18)),
+              ),
+              TableCell(
+                child: Text(
+                    '${decimalFormatter.format(movie.totalRus?.total ?? 0)}',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                      //color: Colors.white,
+                        fontWeight: FontWeight.w100,
+                        fontSize: 18)),
+              ),
+            ]),
+            TableRow(children: <Widget>[
+              TableCell(
+                child: Text('Зрители',
+                    style: TextStyle(
+                      //color: Colors.white,
+                        fontWeight: FontWeight.w100,
+                        fontSize: 18)),
+              ),
+              TableCell(
+                child: Text(
+                    '${fullDateFormatter.format(
+                        movie.spectaculars?.date ?? DateTime.now())}',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                      //color: Colors.white,
+                        fontWeight: FontWeight.w100,
+                        fontSize: 18)),
+              ),
+              TableCell(
+                child: Text(
+                    '${decimalFormatter.format(
+                        movie.spectaculars?.total ?? 0)}',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                      //color: Colors.white,
+                        fontWeight: FontWeight.w100,
+                        fontSize: 18)),
+              ),
+            ]),
+          ]),
+          Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: 8.0),
+                Text('Касса мирового проката',
+                    textAlign: TextAlign.start, style: TextStyle(fontSize: 18)),
+              ]),
+          Table(children: <TableRow>[
+            TableRow(children: <Widget>[
+              TableCell(
+                child: Text('Сборы в США'),
+              ),
+              TableCell(
+                child: Text(''),
+              ),
+            ]),
+            TableRow(children: <Widget>[
+              TableCell(
+                child: Text('Международные сборы:'),
+              ),
+              TableCell(
+                child: Text(''),
+              ),
+            ]),
+            TableRow(children: <Widget>[
+              TableCell(
+                child: Text('Мировые сборы:'),
+              ),
+              TableCell(
+                child: Text(''),
+              ),
+            ]),
+          ]),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding:
+                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0.0),
+                child: Text(
+                  'Режиссёр(ы)',
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .subtitle1
+                      .copyWith(fontSize: 18.0),
+                ),
+              ),
+              SizedBox.fromSize(
+                size: const Size.fromHeight(120.0),
+                child: ListView.builder(
+                  itemCount: movie.directors.length,
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.only(top: 0.0, left: 0.0),
+                  itemBuilder: (BuildContext context, int index) =>
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: Colors.deepOrange,
+                              backgroundImage: NetworkImage(
+                                //snapshot
+                                //.data.directors
+                                //.elementAt(index)
+                                //.avatar ??
+                                  'https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/name-2135195744._CB466677935_.png'),
+                              radius: 40.0,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child:
+                              Text(movie.directors
+                                  .elementAt(index)
+                                  .fullName),
+                            ),
+                          ],
+                        ),
+                      ),
+                ),
+              ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding:
+                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0.0),
+                child: Text(
+                  'Актёры',
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .subtitle1
+                      .copyWith(fontSize: 18.0),
+                ),
+              ),
+              SizedBox.fromSize(
+                size: const Size.fromHeight(120.0),
+                child: ListView.builder(
+                  itemCount: movie.actors.length,
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.only(top: 0.0, left: 0.0),
+                  itemBuilder: (BuildContext context, int index) =>
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: Colors.deepOrange,
+                              backgroundImage: NetworkImage(movie.actors
+                                  .elementAt(index)
+                                  .avatar ??
+                                  'https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/name-2135195744._CB466677935_.png'),
+                              radius: 40.0,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Text(movie.actors
+                                  .elementAt(index)
+                                  .fullName),
+                            ),
+                          ],
+                        ),
+                      ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MovieTitle extends StatelessWidget {
+  const MovieTitle({
+    Key key,
+    @required this.movie,
+  }) : super(key: key);
+
+  final Movie movie;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '${this.movie.title}',
+          style: Theme
+              .of(context)
+              .primaryTextTheme
+              .headline6,
+        ),
+        Text(
+          '${this.movie.original}',
+          style: Theme
+              .of(context)
+              .primaryTextTheme
+              .subtitle2,
+        )
+      ],
+    );
   }
 }
 
@@ -67,7 +402,7 @@ class MovieScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Image.network(
-                        snapshot.data.poster ??
+                        movie.poster ??
                             'https://img.icity.life/upload/no_poster.jpg',
                         width: 140),
                     Column(
@@ -76,7 +411,7 @@ class MovieScreen extends StatelessWidget {
                 ),
                 Wrap(
                   spacing: 4.0,
-                  children: (snapshot.data.genres ?? <String>[])
+                  children: (movie.genres ?? <String>[])
                       .map(
                         (g) =>
                         Chip(
@@ -93,7 +428,7 @@ class MovieScreen extends StatelessWidget {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(snapshot.data.description ?? '',
+                    Text(movie.description ?? '',
                         style: Theme
                             .of(context)
                             .textTheme
@@ -120,8 +455,7 @@ class MovieScreen extends StatelessWidget {
                     TableCell(
                       child: Text(
                           '${fullDateFormatter.format(
-                              snapshot.data.thursdayRus?.date ??
-                                  DateTime.now())}',
+                              movie.thursdayRus?.date ?? DateTime.now())}',
                           textAlign: TextAlign.end,
                           style: TextStyle(
                             //color: Colors.white,
@@ -131,7 +465,7 @@ class MovieScreen extends StatelessWidget {
                     TableCell(
                       child: Text(
                           '${decimalFormatter.format(
-                              snapshot.data.thursdayRus?.total ?? 0)}',
+                              movie.thursdayRus?.total ?? 0)}',
                           textAlign: TextAlign.end,
                           style: TextStyle(
                             //color: Colors.white,
@@ -150,8 +484,7 @@ class MovieScreen extends StatelessWidget {
                     TableCell(
                       child: Text(
                           '${fullDateFormatter.format(
-                              snapshot.data.weekendRus?.date ??
-                                  DateTime.now())}',
+                              movie.weekendRus?.date ?? DateTime.now())}',
                           textAlign: TextAlign.end,
                           style: TextStyle(
                             //color: Colors.white,
@@ -161,7 +494,7 @@ class MovieScreen extends StatelessWidget {
                     TableCell(
                       child: Text(
                           '${decimalFormatter.format(
-                              snapshot.data.weekendRus?.total ?? 0)}',
+                              movie.weekendRus?.total ?? 0)}',
                           textAlign: TextAlign.end,
                           style: TextStyle(
                             //color: Colors.white,
@@ -180,7 +513,7 @@ class MovieScreen extends StatelessWidget {
                     TableCell(
                       child: Text(
                           '${fullDateFormatter.format(
-                              snapshot.data.totalRus?.date ?? DateTime.now())}',
+                              movie.totalRus?.date ?? DateTime.now())}',
                           textAlign: TextAlign.end,
                           style: TextStyle(
                             //color: Colors.white,
@@ -190,7 +523,7 @@ class MovieScreen extends StatelessWidget {
                     TableCell(
                       child: Text(
                           '${decimalFormatter.format(
-                              snapshot.data.totalRus?.total ?? 0)}',
+                              movie.totalRus?.total ?? 0)}',
                           textAlign: TextAlign.end,
                           style: TextStyle(
                             //color: Colors.white,
@@ -209,8 +542,7 @@ class MovieScreen extends StatelessWidget {
                     TableCell(
                       child: Text(
                           '${fullDateFormatter.format(
-                              snapshot.data.spectaculars?.date ??
-                                  DateTime.now())}',
+                              movie.spectaculars?.date ?? DateTime.now())}',
                           textAlign: TextAlign.end,
                           style: TextStyle(
                             //color: Colors.white,
@@ -220,7 +552,7 @@ class MovieScreen extends StatelessWidget {
                     TableCell(
                       child: Text(
                           '${decimalFormatter.format(
-                              snapshot.data.spectaculars?.total ?? 0)}',
+                              movie.spectaculars?.total ?? 0)}',
                           textAlign: TextAlign.end,
                           style: TextStyle(
                             //color: Colors.white,
@@ -281,7 +613,7 @@ class MovieScreen extends StatelessWidget {
                     SizedBox.fromSize(
                       size: const Size.fromHeight(120.0),
                       child: ListView.builder(
-                        itemCount: snapshot.data.directors.length,
+                        itemCount: movie.directors.length,
                         scrollDirection: Axis.horizontal,
                         padding: const EdgeInsets.only(top: 0.0, left: 0.0),
                         itemBuilder: (BuildContext context, int index) =>
@@ -301,9 +633,10 @@ class MovieScreen extends StatelessWidget {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 8.0),
-                                    child: Text(snapshot.data.directors
-                                        .elementAt(index)
-                                        .fullName),
+                                    child: Text(
+                                        movie.directors
+                                            .elementAt(index)
+                                            .fullName),
                                   ),
                                 ],
                               ),
@@ -330,7 +663,7 @@ class MovieScreen extends StatelessWidget {
                     SizedBox.fromSize(
                       size: const Size.fromHeight(120.0),
                       child: ListView.builder(
-                        itemCount: snapshot.data.actors.length,
+                        itemCount: movie.actors.length,
                         scrollDirection: Axis.horizontal,
                         padding: const EdgeInsets.only(top: 0.0, left: 0.0),
                         itemBuilder: (BuildContext context, int index) =>
@@ -349,9 +682,10 @@ class MovieScreen extends StatelessWidget {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 8.0),
-                                    child: Text(snapshot.data.actors
-                                        .elementAt(index)
-                                        .fullName),
+                                    child: Text(
+                                        movie.actors
+                                            .elementAt(index)
+                                            .fullName),
                                   ),
                                 ],
                               ),
