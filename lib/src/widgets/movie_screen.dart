@@ -5,7 +5,13 @@ import 'package:kbapp/src/kb/model.dart';
 import 'package:kbapp/src/utils/formatters.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
-class MovieModel with ChangeNotifier {}
+class MovieModel with ChangeNotifier {
+  Movie movie;
+
+
+  MovieModel(this.movie);
+
+}
 
 class MovieScreenV2 extends StatelessWidget {
   final Movie movie;
