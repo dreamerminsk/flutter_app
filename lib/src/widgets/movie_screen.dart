@@ -37,16 +37,7 @@ class MovieScreenV2 extends StatelessWidget {
             ],
           ),
           Genres(movie: movie),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(movie.description ?? '',
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .bodyText2)
-            ],
-          ),
+          Description(movie: movie),
           Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -54,121 +45,7 @@ class MovieScreenV2 extends StatelessWidget {
                 Text('Кассовые сборы в России и СНГ:',
                     textAlign: TextAlign.start, style: TextStyle(fontSize: 18)),
               ]),
-          Table(children: <TableRow>[
-            TableRow(children: <Widget>[
-              TableCell(
-                child: Text('Первый четверг',
-                    style: TextStyle(
-                      //color: Colors.white,
-                        fontWeight: FontWeight.w100,
-                        fontSize: 18)),
-              ),
-              TableCell(
-                child: Text(
-                    '${fullDateFormatter.format(
-                        movie.thursdayRus?.date ?? DateTime.now())}',
-                    textAlign: TextAlign.end,
-                    style: TextStyle(
-                      //color: Colors.white,
-                        fontWeight: FontWeight.w100,
-                        fontSize: 18)),
-              ),
-              TableCell(
-                child: Text(
-                    '${decimalFormatter.format(movie.thursdayRus?.total ?? 0)}',
-                    textAlign: TextAlign.end,
-                    style: TextStyle(
-                      //color: Colors.white,
-                        fontWeight: FontWeight.w100,
-                        fontSize: 18)),
-              ),
-            ]),
-            TableRow(children: <Widget>[
-              TableCell(
-                child: Text('Первый уик-энд',
-                    style: TextStyle(
-                      //color: Colors.white,
-                        fontWeight: FontWeight.w100,
-                        fontSize: 18)),
-              ),
-              TableCell(
-                child: Text(
-                    '${fullDateFormatter.format(
-                        movie.weekendRus?.date ?? DateTime.now())}',
-                    textAlign: TextAlign.end,
-                    style: TextStyle(
-                      //color: Colors.white,
-                        fontWeight: FontWeight.w100,
-                        fontSize: 18)),
-              ),
-              TableCell(
-                child: Text(
-                    '${decimalFormatter.format(movie.weekendRus?.total ?? 0)}',
-                    textAlign: TextAlign.end,
-                    style: TextStyle(
-                      //color: Colors.white,
-                        fontWeight: FontWeight.w100,
-                        fontSize: 18)),
-              ),
-            ]),
-            TableRow(children: <Widget>[
-              TableCell(
-                child: Text('Общий сбор',
-                    style: TextStyle(
-                      //color: Colors.white,
-                        fontWeight: FontWeight.w100,
-                        fontSize: 18)),
-              ),
-              TableCell(
-                child: Text(
-                    '${fullDateFormatter.format(
-                        movie.totalRus?.date ?? DateTime.now())}',
-                    textAlign: TextAlign.end,
-                    style: TextStyle(
-                      //color: Colors.white,
-                        fontWeight: FontWeight.w100,
-                        fontSize: 18)),
-              ),
-              TableCell(
-                child: Text(
-                    '${decimalFormatter.format(movie.totalRus?.total ?? 0)}',
-                    textAlign: TextAlign.end,
-                    style: TextStyle(
-                      //color: Colors.white,
-                        fontWeight: FontWeight.w100,
-                        fontSize: 18)),
-              ),
-            ]),
-            TableRow(children: <Widget>[
-              TableCell(
-                child: Text('Зрители',
-                    style: TextStyle(
-                      //color: Colors.white,
-                        fontWeight: FontWeight.w100,
-                        fontSize: 18)),
-              ),
-              TableCell(
-                child: Text(
-                    '${fullDateFormatter.format(
-                        movie.spectaculars?.date ?? DateTime.now())}',
-                    textAlign: TextAlign.end,
-                    style: TextStyle(
-                      //color: Colors.white,
-                        fontWeight: FontWeight.w100,
-                        fontSize: 18)),
-              ),
-              TableCell(
-                child: Text(
-                    '${decimalFormatter.format(
-                        movie.spectaculars?.total ?? 0)}',
-                    textAlign: TextAlign.end,
-                    style: TextStyle(
-                      //color: Colors.white,
-                        fontWeight: FontWeight.w100,
-                        fontSize: 18)),
-              ),
-            ]),
-          ]),
+          BoxOfficeRus(movie: movie),
           Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -176,131 +53,321 @@ class MovieScreenV2 extends StatelessWidget {
                 Text('Касса мирового проката',
                     textAlign: TextAlign.start, style: TextStyle(fontSize: 18)),
               ]),
-          Table(children: <TableRow>[
-            TableRow(children: <Widget>[
-              TableCell(
-                child: Text('Сборы в США'),
-              ),
-              TableCell(
-                child: Text(''),
-              ),
-            ]),
-            TableRow(children: <Widget>[
-              TableCell(
-                child: Text('Международные сборы:'),
-              ),
-              TableCell(
-                child: Text(''),
-              ),
-            ]),
-            TableRow(children: <Widget>[
-              TableCell(
-                child: Text('Мировые сборы:'),
-              ),
-              TableCell(
-                child: Text(''),
-              ),
-            ]),
-          ]),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding:
-                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0.0),
-                child: Text(
-                  'Режиссёр(ы)',
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .subtitle1
-                      .copyWith(fontSize: 18.0),
-                ),
-              ),
-              SizedBox.fromSize(
-                size: const Size.fromHeight(120.0),
-                child: ListView.builder(
-                  itemCount: movie.directors.length,
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.only(top: 0.0, left: 0.0),
-                  itemBuilder: (BuildContext context, int index) =>
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: Colors.deepOrange,
-                              backgroundImage: NetworkImage(
-                                //snapshot
-                                //.data.directors
-                                //.elementAt(index)
-                                //.avatar ??
-                                  'https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/name-2135195744._CB466677935_.png'),
-                              radius: 40.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child:
-                              Text(movie.directors
-                                  .elementAt(index)
-                                  .fullName),
-                            ),
-                          ],
-                        ),
-                      ),
-                ),
-              ),
-            ],
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding:
-                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0.0),
-                child: Text(
-                  'Актёры',
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .subtitle1
-                      .copyWith(fontSize: 18.0),
-                ),
-              ),
-              SizedBox.fromSize(
-                size: const Size.fromHeight(120.0),
-                child: ListView.builder(
-                  itemCount: movie.actors.length,
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.only(top: 0.0, left: 0.0),
-                  itemBuilder: (BuildContext context, int index) =>
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: Colors.deepOrange,
-                              backgroundImage: NetworkImage(movie.actors
-                                  .elementAt(index)
-                                  .avatar ??
-                                  'https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/name-2135195744._CB466677935_.png'),
-                              radius: 40.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Text(movie.actors
-                                  .elementAt(index)
-                                  .fullName),
-                            ),
-                          ],
-                        ),
-                      ),
-                ),
-              ),
-            ],
-          ),
+          BoxOfficeWorld(),
+          DirectorList(movie: movie),
+          ActorList(movie: movie),
         ],
       ),
+    );
+  }
+}
+
+class ActorList extends StatelessWidget {
+  const ActorList({
+    Key key,
+    @required this.movie,
+  }) : super(key: key);
+
+  final Movie movie;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding:
+          const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0.0),
+          child: Text(
+            'Актёры',
+            style: Theme
+                .of(context)
+                .textTheme
+                .subtitle1
+                .copyWith(fontSize: 18.0),
+          ),
+        ),
+        SizedBox.fromSize(
+          size: const Size.fromHeight(120.0),
+          child: ListView.builder(
+            itemCount: movie.actors.length,
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.only(top: 0.0, left: 0.0),
+            itemBuilder: (BuildContext context, int index) =>
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.deepOrange,
+                        backgroundImage: NetworkImage(movie.actors
+                            .elementAt(index)
+                            .avatar ??
+                            'https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/name-2135195744._CB466677935_.png'),
+                        radius: 40.0,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(movie.actors
+                            .elementAt(index)
+                            .fullName),
+                      ),
+                    ],
+                  ),
+                ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class DirectorList extends StatelessWidget {
+  const DirectorList({
+    Key key,
+    @required this.movie,
+  }) : super(key: key);
+
+  final Movie movie;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding:
+          const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0.0),
+          child: Text(
+            'Режиссёр(ы)',
+            style: Theme
+                .of(context)
+                .textTheme
+                .subtitle1
+                .copyWith(fontSize: 18.0),
+          ),
+        ),
+        SizedBox.fromSize(
+          size: const Size.fromHeight(120.0),
+          child: ListView.builder(
+            itemCount: movie.directors.length,
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.only(top: 0.0, left: 0.0),
+            itemBuilder: (BuildContext context, int index) =>
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.deepOrange,
+                        backgroundImage: NetworkImage(
+                          //snapshot
+                          //.data.directors
+                          //.elementAt(index)
+                          //.avatar ??
+                            'https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/name-2135195744._CB466677935_.png'),
+                        radius: 40.0,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child:
+                        Text(movie.directors
+                            .elementAt(index)
+                            .fullName),
+                      ),
+                    ],
+                  ),
+                ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class BoxOfficeWorld extends StatelessWidget {
+  const BoxOfficeWorld({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Table(children: <TableRow>[
+      TableRow(children: <Widget>[
+        TableCell(
+          child: Text('Сборы в США'),
+        ),
+        TableCell(
+          child: Text(''),
+        ),
+      ]),
+      TableRow(children: <Widget>[
+        TableCell(
+          child: Text('Международные сборы:'),
+        ),
+        TableCell(
+          child: Text(''),
+        ),
+      ]),
+      TableRow(children: <Widget>[
+        TableCell(
+          child: Text('Мировые сборы:'),
+        ),
+        TableCell(
+          child: Text(''),
+        ),
+      ]),
+    ]);
+  }
+}
+
+class BoxOfficeRus extends StatelessWidget {
+  const BoxOfficeRus({
+    Key key,
+    @required this.movie,
+  }) : super(key: key);
+
+  final Movie movie;
+
+  @override
+  Widget build(BuildContext context) {
+    return Table(children: <TableRow>[
+      TableRow(children: <Widget>[
+        TableCell(
+          child: Text('Первый четверг',
+              style: TextStyle(
+                //color: Colors.white,
+                  fontWeight: FontWeight.w100,
+                  fontSize: 18)),
+        ),
+        TableCell(
+          child: Text(
+              '${fullDateFormatter.format(
+                  movie.thursdayRus?.date ?? DateTime.now())}',
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                //color: Colors.white,
+                  fontWeight: FontWeight.w100,
+                  fontSize: 18)),
+        ),
+        TableCell(
+          child: Text(
+              '${decimalFormatter.format(movie.thursdayRus?.total ?? 0)}',
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                //color: Colors.white,
+                  fontWeight: FontWeight.w100,
+                  fontSize: 18)),
+        ),
+      ]),
+      TableRow(children: <Widget>[
+        TableCell(
+          child: Text('Первый уик-энд',
+              style: TextStyle(
+                //color: Colors.white,
+                  fontWeight: FontWeight.w100,
+                  fontSize: 18)),
+        ),
+        TableCell(
+          child: Text(
+              '${fullDateFormatter.format(
+                  movie.weekendRus?.date ?? DateTime.now())}',
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                //color: Colors.white,
+                  fontWeight: FontWeight.w100,
+                  fontSize: 18)),
+        ),
+        TableCell(
+          child: Text(
+              '${decimalFormatter.format(movie.weekendRus?.total ?? 0)}',
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                //color: Colors.white,
+                  fontWeight: FontWeight.w100,
+                  fontSize: 18)),
+        ),
+      ]),
+      TableRow(children: <Widget>[
+        TableCell(
+          child: Text('Общий сбор',
+              style: TextStyle(
+                //color: Colors.white,
+                  fontWeight: FontWeight.w100,
+                  fontSize: 18)),
+        ),
+        TableCell(
+          child: Text(
+              '${fullDateFormatter.format(
+                  movie.totalRus?.date ?? DateTime.now())}',
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                //color: Colors.white,
+                  fontWeight: FontWeight.w100,
+                  fontSize: 18)),
+        ),
+        TableCell(
+          child: Text(
+              '${decimalFormatter.format(movie.totalRus?.total ?? 0)}',
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                //color: Colors.white,
+                  fontWeight: FontWeight.w100,
+                  fontSize: 18)),
+        ),
+      ]),
+      TableRow(children: <Widget>[
+        TableCell(
+          child: Text('Зрители',
+              style: TextStyle(
+                //color: Colors.white,
+                  fontWeight: FontWeight.w100,
+                  fontSize: 18)),
+        ),
+        TableCell(
+          child: Text(
+              '${fullDateFormatter.format(
+                  movie.spectaculars?.date ?? DateTime.now())}',
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                //color: Colors.white,
+                  fontWeight: FontWeight.w100,
+                  fontSize: 18)),
+        ),
+        TableCell(
+          child: Text(
+              '${decimalFormatter.format(
+                  movie.spectaculars?.total ?? 0)}',
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                //color: Colors.white,
+                  fontWeight: FontWeight.w100,
+                  fontSize: 18)),
+        ),
+      ]),
+    ]);
+  }
+}
+
+class Description extends StatelessWidget {
+  const Description({
+    Key key,
+    @required this.movie,
+  }) : super(key: key);
+
+  final Movie movie;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Text(movie.description ?? '',
+            style: Theme
+                .of(context)
+                .textTheme
+                .bodyText2)
+      ],
     );
   }
 }
