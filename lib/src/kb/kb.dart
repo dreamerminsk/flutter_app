@@ -188,7 +188,7 @@ class KbApi {
         poster: '$kbHost${posterImg.attributes['src']}',
         genres: genres,
         description: desc,
-        directors: (await _parseDirectors(document)),
+        directors: (_parseDirectors(document)).cast(),
         actors: _parseActors(document).cast(),
         thursdayRus: _parseFirstThursday(document) ??
             BoxOfficeItem(
