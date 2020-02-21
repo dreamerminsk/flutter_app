@@ -76,11 +76,11 @@ class ActorList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding:
-          const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0.0),
+          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0.0),
           child: Text(
             'Актёры',
-            style: Theme
+            style:
+            Theme
                 .of(context)
                 .textTheme
                 .subtitle1
@@ -136,11 +136,11 @@ class DirectorList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding:
-          const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0.0),
+          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0.0),
           child: Text(
             'Режиссёр(ы)',
-            style: Theme
+            style:
+            Theme
                 .of(context)
                 .textTheme
                 .subtitle1
@@ -160,18 +160,15 @@ class DirectorList extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         backgroundColor: Colors.deepOrange,
-                        backgroundImage: NetworkImage(
-                          //snapshot
-                          //.data.directors
-                          //.elementAt(index)
-                          //.avatar ??
+                        backgroundImage: NetworkImage(movie.directors
+                            .elementAt(index)
+                            .avatar ??
                             'https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/name-2135195744._CB466677935_.png'),
                         radius: 40.0,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
-                        child:
-                        Text(movie.directors
+                        child: Text(movie.directors
                             .elementAt(index)
                             .fullName),
                       ),
@@ -251,8 +248,8 @@ class BoxOfficeRus extends StatelessWidget {
                   fontSize: 18)),
         ),
         TableCell(
-          child: Text(
-              '${decimalFormatter.format(movie.thursdayRus?.total ?? 0)}',
+          child:
+          Text('${decimalFormatter.format(movie.thursdayRus?.total ?? 0)}',
               textAlign: TextAlign.end,
               style: TextStyle(
                 //color: Colors.white,
@@ -279,8 +276,8 @@ class BoxOfficeRus extends StatelessWidget {
                   fontSize: 18)),
         ),
         TableCell(
-          child: Text(
-              '${decimalFormatter.format(movie.weekendRus?.total ?? 0)}',
+          child:
+          Text('${decimalFormatter.format(movie.weekendRus?.total ?? 0)}',
               textAlign: TextAlign.end,
               style: TextStyle(
                 //color: Colors.white,
@@ -307,8 +304,7 @@ class BoxOfficeRus extends StatelessWidget {
                   fontSize: 18)),
         ),
         TableCell(
-          child: Text(
-              '${decimalFormatter.format(movie.totalRus?.total ?? 0)}',
+          child: Text('${decimalFormatter.format(movie.totalRus?.total ?? 0)}',
               textAlign: TextAlign.end,
               style: TextStyle(
                 //color: Colors.white,
@@ -335,9 +331,8 @@ class BoxOfficeRus extends StatelessWidget {
                   fontSize: 18)),
         ),
         TableCell(
-          child: Text(
-              '${decimalFormatter.format(
-                  movie.spectaculars?.total ?? 0)}',
+          child:
+          Text('${decimalFormatter.format(movie.spectaculars?.total ?? 0)}',
               textAlign: TextAlign.end,
               style: TextStyle(
                 //color: Colors.white,
