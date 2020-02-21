@@ -8,10 +8,35 @@ class BoxOfficeItem {
 }
 
 class Person {
+  var _id;
   String fullName;
   String avatar;
 
   Person({this.fullName, this.avatar});
+
+  Person.map(dynamic obj) {
+    this.fullName = obj['fullName'];
+    this.avatar = obj['avatar'];
+  }
+
+  String get id => _id;
+
+  Map<String, dynamic> toMap() {
+    var map = new Map<String, dynamic>();
+    if (_id != null) {
+      map['id'] = _id;
+    }
+    map['fullName'] = this.fullName;
+    map['avatar'] = this.avatar;
+
+    return map;
+  }
+
+  Person.fromMap(Map<String, dynamic> map) {
+    this._id = map['id'];
+    this.fullName = map['fullName'];
+    this.avatar = map['avatar'];
+  }
 }
 
 class Movie {

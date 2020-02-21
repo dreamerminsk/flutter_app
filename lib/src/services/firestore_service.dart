@@ -7,6 +7,9 @@ Firestore.instance.collection('boxoffice_years');
 final CollectionReference workerCollection =
 Firestore.instance.collection('workers');
 
+final CollectionReference personCollection =
+Firestore.instance.collection('persons');
+
 class FirestoreService {
   static final FirestoreService _instance = new FirestoreService.internal();
 
@@ -45,6 +48,41 @@ class FirestoreService {
     }
 
     return snapshots;
+  }
+
+  Future<Person> createPerson(String fullName, String avatar) async {
+    final TransactionHandler createTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds = await tx.get(personCollection.document());
+
+      final Map<String, dynamic> data =
+      Person(fullName: fullName, avatar: avatar).toMap();
+
+      await tx.set(ds.reference, data);
+
+      return data;
+    };
+
+    return Firestore.instance.runTransaction(createTransaction).then((mapData) {
+      return Person.fromMap(mapData);
+    }).catchError((error) {
+      print('error: $error');
+      return null;
+    });
+  }
+
+  Future<Person> getPersonByName(String fullName) async {
+    return personCollection
+        .where('fullName', isEqualTo: fullName)
+        .getDocuments()
+        .then((mapData) {
+      if (mapData.documents.length > 0) {
+        return Person.fromMap(mapData.documents[0].data);
+      }
+      return null;
+    }).catchError((error) {
+      print('error: $error');
+      return null;
+    });
   }
 
   Future<Note> createNote(String title, String description) async {

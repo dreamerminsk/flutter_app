@@ -291,10 +291,11 @@ class MovieScreen extends StatelessWidget {
                                 children: [
                                   CircleAvatar(
                                     backgroundColor: Colors.deepOrange,
-                                    backgroundImage: NetworkImage(snapshot
-                                        .data.directors
-                                        .elementAt(index)
-                                        .avatar ??
+                                    backgroundImage: NetworkImage(
+                                      //snapshot
+                                      //.data.directors
+                                      //.elementAt(index)
+                                      //.avatar ??
                                         'https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/name-2135195744._CB466677935_.png'),
                                     radius: 40.0,
                                   ),

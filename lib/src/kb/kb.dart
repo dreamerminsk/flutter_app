@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart';
+import 'package:kbapp/src/services/firestore_service.dart';
 import 'package:kbapp/src/utils/strings.dart';
 
 import '../utils/formatters.dart';
@@ -187,7 +188,7 @@ class KbApi {
         poster: '$kbHost${posterImg.attributes['src']}',
         genres: genres,
         description: desc,
-        directors: _parseDirectors(document).cast(),
+        directors: (await _parseDirectors(document)),
         actors: _parseActors(document).cast(),
         thursdayRus: _parseFirstThursday(document) ??
             BoxOfficeItem(
@@ -297,6 +298,9 @@ class KbApi {
       return document
           .querySelectorAll('span[itemprop="director"]')
           .map((element) {
+        final fs = FirestoreService();
+        var p = fs.getPersonByName(element.text.trim());
+        p.then((value) => value ?? fs.createPerson(element.text.trim(), ''));
         return Person(fullName: element.text.trim());
       }).toList();
     } catch (e) {
@@ -307,9 +311,7 @@ class KbApi {
 
   List<Person> _parseActors(dom.Document document) {
     try {
-      return document
-          .querySelectorAll('span[itemprop="actor"]')
-          .map((element) {
+      return document.querySelectorAll('span[itemprop="actor"]').map((element) {
         return Person(fullName: element.text.trim());
       }).toList();
     } catch (e) {
