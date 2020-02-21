@@ -7,6 +7,13 @@ class BoxOfficeItem {
   BoxOfficeItem({@required this.date, @required this.total});
 }
 
+class Person {
+  String fullName;
+  String avatar;
+
+  Person({this.fullName, this.avatar});
+}
+
 class Movie {
   String title;
   String original;
@@ -14,8 +21,8 @@ class Movie {
   String poster;
   List<String> genres;
   String description;
-  List<String> directors;
-  List<String> actors;
+  List<Person> directors;
+  List<Person> actors;
   BoxOfficeItem thursdayRus;
   BoxOfficeItem weekendRus;
   BoxOfficeItem totalRus;

@@ -291,15 +291,18 @@ class MovieScreen extends StatelessWidget {
                                 children: [
                                   CircleAvatar(
                                     backgroundColor: Colors.deepOrange,
-                                    backgroundImage: NetworkImage(
+                                    backgroundImage: NetworkImage(snapshot
+                                        .data.directors
+                                        .elementAt(index)
+                                        .avatar ??
                                         'https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/name-2135195744._CB466677935_.png'),
                                     radius: 40.0,
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 8.0),
-                                    child: Text(
-                                        snapshot.data.directors.elementAt(
-                                            index)),
+                                    child: Text(snapshot.data.directors
+                                        .elementAt(index)
+                                        .fullName),
                                   ),
                                 ],
                               ),
@@ -336,14 +339,18 @@ class MovieScreen extends StatelessWidget {
                                 children: [
                                   CircleAvatar(
                                     backgroundColor: Colors.deepOrange,
-                                    backgroundImage: NetworkImage(
+                                    backgroundImage: NetworkImage(snapshot
+                                        .data.actors
+                                        .elementAt(index)
+                                        .avatar ??
                                         'https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/name-2135195744._CB466677935_.png'),
                                     radius: 40.0,
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 8.0),
-                                    child:
-                                    Text(snapshot.data.actors.elementAt(index)),
+                                    child: Text(snapshot.data.actors
+                                        .elementAt(index)
+                                        .fullName),
                                   ),
                                 ],
                               ),

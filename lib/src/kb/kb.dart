@@ -292,29 +292,29 @@ class KbApi {
     }
   }
 
-  List<String> _parseDirectors(dom.Document document) {
+  List<Person> _parseDirectors(dom.Document document) {
     try {
       return document
           .querySelectorAll('span[itemprop="director"]')
           .map((element) {
-        return element.text.trim();
+        return Person(fullName: element.text.trim());
       }).toList();
     } catch (e) {
       developer.log('${e.toString()}');
-      return <String>[];
+      return <Person>[];
     }
   }
 
-  List<String> _parseActors(dom.Document document) {
+  List<Person> _parseActors(dom.Document document) {
     try {
       return document
           .querySelectorAll('span[itemprop="actor"]')
           .map((element) {
-        return element.text.trim();
+        return Person(fullName: element.text.trim());
       }).toList();
     } catch (e) {
       developer.log('${e.toString()}');
-      return <String>[];
+      return <Person>[];
     }
   }
 }
