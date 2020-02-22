@@ -220,7 +220,7 @@ class Thursday {
   String title;
   int boxOffice;
 
-  Thursday({this.kbRef, this.title, this.boxOffice});
+  Thursday({this.date, this.kbRef, this.title, this.boxOffice});
 
   Thursday.map(dynamic obj) {
     this.date = obj['date'];

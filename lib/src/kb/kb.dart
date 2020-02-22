@@ -136,21 +136,18 @@ class KbApi {
     }
   }
 
-  Future<List<DateTime>> getThursdaysv2() async {
+  Future<List<Thursday>> getThursdaysv2() async {
     try {
       String url = '$thursdayBoxOffice';
       var response = await dio.get(url);
       var document = parse(response.data.toString());
-      List<dom.Element> rows = document.querySelectorAll(
-          'table.calendar_year > tbody > tr');
-      var ds = rows.map((item) {
-        var parts = item.attributes['href'].trim().split("/");
-        return fullDateFormatter.parse(parts[parts.length - 2]);
-      }).toList();
+      List<dom.Element> rows =
+      document.querySelectorAll('table.calendar_year > tbody > tr');
+      var ds = rows.map((item) => _parseThursday(item)).toList();
       return ds;
     } catch (exception) {
       developer.log(exception.toString());
-      return <DateTime>[];
+      return <Thursday>[];
     }
   }
 
@@ -158,9 +155,12 @@ class KbApi {
     var children = e.getElementsByTagName('td');
     var thursdayRef = children[0].querySelector('center > a');
     var parts = thursdayRef.attributes['href'].trim().split("/");
-    var date = fullDateFormatter.parse(parts[parts.length - 2]);
-
-    return Thursday();
+    return Thursday(
+      date: fullDateFormatter.parse(parts[parts.length - 2]),
+      kbRef: thursdayRef.attributes['href'],
+      title: thursdayRef.text.trim(),
+      boxOffice: parseInt(children[1].text),
+    );
   }
 
   Future<List<ThursdayRecord>> getThursdayBoxOffice(DateTime day) async {

@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kbapp/src/kb/model.dart';
+import 'package:kbapp/src/utils/formatters.dart';
 
 final CollectionReference yearCollection =
 Firestore.instance.collection('boxoffice_years');
+
+final CollectionReference thursdayCollection =
+Firestore.instance.collection('thursday');
 
 final CollectionReference workerCollection =
 Firestore.instance.collection('workers');
@@ -16,6 +20,26 @@ class FirestoreService {
   factory FirestoreService() => _instance;
 
   FirestoreService.internal();
+
+  Future<Thursday> createThursday(Thursday thursday) async {
+    final TransactionHandler createTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds = await tx.get(
+          thursdayCollection.document(isoFormatter.format(thursday.date)));
+
+      final Map<String, dynamic> data = thursday.toMap();
+
+      await tx.set(ds.reference, data);
+
+      return data;
+    };
+
+    return Firestore.instance.runTransaction(createTransaction).then((mapData) {
+      return Thursday.fromMap(mapData);
+    }).catchError((error) {
+      print('error: $error');
+      return null;
+    });
+  }
 
   Future<YearRecord> createYear(YearRecord year) async {
     final TransactionHandler createTransaction = (Transaction tx) async {
