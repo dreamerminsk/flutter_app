@@ -214,9 +214,39 @@ class WeekendRecord {
 }
 
 class Thursday {
+  String _id;
   String kbRef;
   String title;
   int boxOffice;
+
+  Thursday({this.kbRef, this.title, this.boxOffice});
+
+  Thursday.map(dynamic obj) {
+    this.kbRef = obj['kbRef'];
+    this.title = obj['title'];
+    this.boxOffice = obj['boxOffice'];
+  }
+
+  String get id => _id;
+
+  Map<String, dynamic> toMap() {
+    var map = new Map<String, dynamic>();
+    if (_id != null) {
+      map['id'] = _id;
+    }
+    map['kbRef'] = this.kbRef;
+    map['title'] = this.title;
+    map['boxOffice'] = this.boxOffice;
+
+    return map;
+  }
+
+  Thursday.fromMap(Map<String, dynamic> map) {
+    this._id = map['id'];
+    this.kbRef = map['kbRef'];
+    this.title = map['title'];
+    this.boxOffice = map['boxOffice'];
+  }
 }
 
 class ThursdayRecord {
