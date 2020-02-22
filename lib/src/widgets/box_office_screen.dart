@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:kbapp/src/kb/kb.dart';
 import 'package:kbapp/src/kb/model.dart';
 import 'package:kbapp/src/services/firestore_service.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,8 @@ class BoxOfficeHomeModel with ChangeNotifier {
   FirestoreService db = new FirestoreService();
 
   StreamSubscription<QuerySnapshot> yearSub;
+
+  final KbApi kb = KbApi();
 
   BoxOfficeHomeModel() {
     initState();
@@ -33,6 +36,11 @@ class BoxOfficeHomeModel with ChangeNotifier {
       this.items = years;
       notifyListeners();
     });
+
+    kb.getThursdaysv2().then((data) =>
+        data.forEach((element) {
+          db.createThursday(element);
+        }));
   }
 
   @override
