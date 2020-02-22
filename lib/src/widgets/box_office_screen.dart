@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:developer' as developer;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,9 @@ class BoxOfficeHomeModel with ChangeNotifier {
 
   StreamSubscription<QuerySnapshot> yearSub;
 
+  List<Thursday> thursdays;
+  StreamSubscription<QuerySnapshot> thursdaySub;
+
   final KbApi kb = KbApi();
 
   BoxOfficeHomeModel() {
@@ -26,6 +30,16 @@ class BoxOfficeHomeModel with ChangeNotifier {
 
   void initState() {
     items = new List();
+
+    thursdaySub?.cancel();
+    thursdaySub = db.getThursdayList().listen((QuerySnapshot snapshot) {
+      final List<Thursday> thursdays = snapshot.documents
+          .map((documentSnapshot) => Thursday.fromMap(documentSnapshot.data))
+          .toList();
+      developer.log('THURSADY: ${thursdays}');
+      this.thursdays = thursdays;
+      notifyListeners();
+    });
 
     yearSub?.cancel();
     yearSub = db.getYearList(limit: 20).listen((QuerySnapshot snapshot) {
@@ -45,6 +59,7 @@ class BoxOfficeHomeModel with ChangeNotifier {
 
   @override
   void dispose() {
+    thursdaySub?.cancel();
     yearSub?.cancel();
     super.dispose();
   }
@@ -67,7 +82,8 @@ class BoxOfficeHome extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           Text(
-                            '${items[0]}',
+                            '${items[0]} - ${model.thursdays != null ? model
+                                .thursdays[0]?.title : ''}',
                             style: Theme
                                 .of(context)
                                 .textTheme

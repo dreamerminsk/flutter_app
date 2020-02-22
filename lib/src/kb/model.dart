@@ -249,11 +249,11 @@ class Thursday {
 
   Thursday.fromMap(Map<String, dynamic> map) {
     this._id = map['id'];
-    this.date = map['date'];
+    this.date = map['date'].toDate();
     this.kbRef = map['kbRef'];
     this.title = map['title'];
     this.boxOffice = map['boxOffice'];
-    this.lastUpdated = map['lastUpdated'];
+    this.lastUpdated = map['lastUpdated'].toDate();
   }
 }
 

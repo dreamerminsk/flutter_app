@@ -23,8 +23,8 @@ class FirestoreService {
 
   Future<Thursday> createThursday(Thursday thursday) async {
     final TransactionHandler createTransaction = (Transaction tx) async {
-      final DocumentSnapshot ds = await tx.get(
-          thursdayCollection.document(isoFormatter.format(thursday.date)));
+      final DocumentSnapshot ds = await tx
+          .get(thursdayCollection.document(isoFormatter.format(thursday.date)));
 
       final Map<String, dynamic> data = thursday.toMap();
 
@@ -39,6 +39,21 @@ class FirestoreService {
       print('error: $error');
       return null;
     });
+  }
+
+  Stream<QuerySnapshot> getThursdayList({int offset, int limit}) {
+    Stream<QuerySnapshot> snapshots =
+    thursdayCollection.orderBy('date', descending: true).snapshots();
+
+    if (offset != null) {
+      snapshots = snapshots.skip(offset);
+    }
+
+    if (limit != null) {
+      snapshots = snapshots.take(limit);
+    }
+
+    return snapshots;
   }
 
   Future<YearRecord> createYear(YearRecord year) async {
