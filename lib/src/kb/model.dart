@@ -215,6 +215,7 @@ class WeekendRecord {
 
 class Thursday {
   String _id;
+  DateTime date;
   String kbRef;
   String title;
   int boxOffice;
@@ -222,6 +223,7 @@ class Thursday {
   Thursday({this.kbRef, this.title, this.boxOffice});
 
   Thursday.map(dynamic obj) {
+    this.date = obj['date'];
     this.kbRef = obj['kbRef'];
     this.title = obj['title'];
     this.boxOffice = obj['boxOffice'];
@@ -234,6 +236,7 @@ class Thursday {
     if (_id != null) {
       map['id'] = _id;
     }
+    map['date'] = this.date;
     map['kbRef'] = this.kbRef;
     map['title'] = this.title;
     map['boxOffice'] = this.boxOffice;
@@ -243,6 +246,7 @@ class Thursday {
 
   Thursday.fromMap(Map<String, dynamic> map) {
     this._id = map['id'];
+    this.date = map['date'];
     this.kbRef = map['kbRef'];
     this.title = map['title'];
     this.boxOffice = map['boxOffice'];

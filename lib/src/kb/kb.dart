@@ -142,11 +142,9 @@ class KbApi {
       var response = await dio.get(url);
       var document = parse(response.data.toString());
       List<dom.Element> rows = document.querySelectorAll(
-          'table.calendar_year > tbody > tr > td > center > a[href]');
-      developer.log('ELEMENTS: ${rows.length}');
+          'table.calendar_year > tbody > tr');
       var ds = rows.map((item) {
         var parts = item.attributes['href'].trim().split("/");
-        developer.log('PARTS: ${parts.length}');
         return fullDateFormatter.parse(parts[parts.length - 2]);
       }).toList();
       return ds;
@@ -154,6 +152,15 @@ class KbApi {
       developer.log(exception.toString());
       return <DateTime>[];
     }
+  }
+
+  Thursday _parseThursday(dom.Element e) {
+    var children = e.getElementsByTagName('td');
+    var thursdayRef = children[0].querySelector('center > a');
+    var parts = thursdayRef.attributes['href'].trim().split("/");
+    var date = fullDateFormatter.parse(parts[parts.length - 2]);
+
+    return Thursday();
   }
 
   Future<List<ThursdayRecord>> getThursdayBoxOffice(DateTime day) async {
