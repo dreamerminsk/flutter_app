@@ -81,16 +81,16 @@ class BoxOfficeHome extends StatelessWidget {
                                 padding: EdgeInsets.only(top: 8.0),
                                 child: idx == 2
                                     ? Table(columnWidths: {
-                                  0: FlexColumnWidth(2),
-                                  1: FlexColumnWidth(14),
-                                  2: FlexColumnWidth(6),
+                                  0: FlexColumnWidth(3),
+                                  1: FlexColumnWidth(20),
+                                  2: FlexColumnWidth(10),
                                 }, children: <TableRow>[
                                   TableRow(children: <Widget>[
                                     TableCell(
                                         child: Padding(
                                             padding: EdgeInsets.only(
                                                 right: 8.0),
-                                            child: Text('${index + 1}',
+                                            child: Text('${index + 1}.',
                                                 textAlign:
                                                 TextAlign.end))),
                                     TableCell(

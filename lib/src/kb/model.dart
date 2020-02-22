@@ -203,7 +203,6 @@ class YearRecord {
   }
 }
 
-
 class WeekendRecord {
   int pos;
   String title;
@@ -219,14 +218,17 @@ class Thursday {
   String kbRef;
   String title;
   int boxOffice;
+  DateTime lastUpdated;
 
-  Thursday({this.date, this.kbRef, this.title, this.boxOffice});
+  Thursday({this.date, this.kbRef, this.title, this.boxOffice})
+      : this.lastUpdated = DateTime.now();
 
   Thursday.map(dynamic obj) {
     this.date = obj['date'];
     this.kbRef = obj['kbRef'];
     this.title = obj['title'];
     this.boxOffice = obj['boxOffice'];
+    this.lastUpdated = obj['lastUpdated'];
   }
 
   String get id => _id;
@@ -240,6 +242,7 @@ class Thursday {
     map['kbRef'] = this.kbRef;
     map['title'] = this.title;
     map['boxOffice'] = this.boxOffice;
+    map['lastUpdated'] = this.lastUpdated;
 
     return map;
   }
@@ -250,6 +253,7 @@ class Thursday {
     this.kbRef = map['kbRef'];
     this.title = map['title'];
     this.boxOffice = map['boxOffice'];
+    this.lastUpdated = map['lastUpdated'];
   }
 }
 

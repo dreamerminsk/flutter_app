@@ -6,7 +6,7 @@ final CollectionReference yearCollection =
 Firestore.instance.collection('boxoffice_years');
 
 final CollectionReference thursdayCollection =
-Firestore.instance.collection('thursday');
+Firestore.instance.collection('thursdays');
 
 final CollectionReference workerCollection =
 Firestore.instance.collection('workers');
