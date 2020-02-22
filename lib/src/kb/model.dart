@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:flutter/material.dart';
 
 class BoxOfficeItem {
@@ -224,10 +226,12 @@ class Thursday {
       : this.lastUpdated = DateTime.now();
 
   Thursday.map(dynamic obj) {
+    developer.log('map.date ${obj['date'].runtimeType}');
     this.date = obj['date'];
     this.kbRef = obj['kbRef'];
     this.title = obj['title'];
     this.boxOffice = obj['boxOffice'];
+    developer.log('map.lastUpdated ${obj['lastUpdated'].runtimeType}');
     this.lastUpdated = obj['lastUpdated'];
   }
 
@@ -249,10 +253,12 @@ class Thursday {
 
   Thursday.fromMap(Map<String, dynamic> map) {
     this._id = map['id'];
+    developer.log('fromMap.date ${map['date'].runtimeType}');
     this.date = map['date'].toDate();
     this.kbRef = map['kbRef'];
     this.title = map['title'];
     this.boxOffice = map['boxOffice'];
+    developer.log('fromMap.lastUpdated ${map['lastUpdated'].runtimeType}');
     this.lastUpdated = map['lastUpdated'].toDate();
   }
 }
