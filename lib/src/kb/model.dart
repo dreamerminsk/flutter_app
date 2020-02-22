@@ -203,6 +203,7 @@ class YearRecord {
   }
 }
 
+
 class WeekendRecord {
   int pos;
   String title;
@@ -210,6 +211,12 @@ class WeekendRecord {
   String kbRef;
 
   WeekendRecord({this.pos, this.title, this.boxOffice, this.kbRef});
+}
+
+class Thursday {
+  String kbRef;
+  String title;
+  int boxOffice;
 }
 
 class ThursdayRecord {

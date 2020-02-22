@@ -25,7 +25,7 @@ class BoxOfficeHomeModel with ChangeNotifier {
     items = new List();
 
     yearSub?.cancel();
-    yearSub = db.getYearList().listen((QuerySnapshot snapshot) {
+    yearSub = db.getYearList(limit: 20).listen((QuerySnapshot snapshot) {
       final List<YearRecord> years = snapshot.documents
           .map((documentSnapshot) => YearRecord.fromMap(documentSnapshot.data))
           .toList();
@@ -100,7 +100,7 @@ class BoxOfficeHome extends StatelessWidget {
                                     : Text('$index. Нет информации'),
                               );
                             },
-                            itemCount: 10, // this is a hardcoded value
+                            itemCount: 20, // this is a hardcoded value
                           ),
                         ],
                       ),

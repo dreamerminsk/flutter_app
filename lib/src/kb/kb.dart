@@ -136,6 +136,26 @@ class KbApi {
     }
   }
 
+  Future<List<DateTime>> getThursdaysv2() async {
+    try {
+      String url = '$thursdayBoxOffice';
+      var response = await dio.get(url);
+      var document = parse(response.data.toString());
+      List<dom.Element> rows = document.querySelectorAll(
+          'table.calendar_year > tbody > tr > td > center > a[href]');
+      developer.log('ELEMENTS: ${rows.length}');
+      var ds = rows.map((item) {
+        var parts = item.attributes['href'].trim().split("/");
+        developer.log('PARTS: ${parts.length}');
+        return fullDateFormatter.parse(parts[parts.length - 2]);
+      }).toList();
+      return ds;
+    } catch (exception) {
+      developer.log(exception.toString());
+      return <DateTime>[];
+    }
+  }
+
   Future<List<ThursdayRecord>> getThursdayBoxOffice(DateTime day) async {
     developer.log('getThursdayBoxOffice');
     try {
