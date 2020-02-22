@@ -60,14 +60,14 @@ class BoxOfficeHome extends StatelessWidget {
         create: (context) => BoxOfficeHomeModel(),
         child: Consumer<BoxOfficeHomeModel>(
             builder: (context, model, child) =>
-                ListView.builder(
-                  itemBuilder: (context, idx) {
-                    return Padding(
+                ListView(
+                  children: <Widget>[
+                    Padding(
                       padding: EdgeInsets.all(16.0),
                       child: Column(
                         children: <Widget>[
                           Text(
-                            '${items[idx]}',
+                            '${items[0]}',
                             style: Theme
                                 .of(context)
                                 .textTheme
@@ -79,8 +79,59 @@ class BoxOfficeHome extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding: EdgeInsets.only(top: 8.0),
-                                child: idx == 2
-                                    ? Table(columnWidths: {
+                                child: Text('$index. Нет информации'),
+                              );
+                            },
+                            itemCount: 10, // this is a hardcoded value
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            '${items[1]}',
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .bodyText1,
+                          ),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.only(top: 8.0),
+                                child: Text('$index. Нет информации'),
+                              );
+                            },
+                            itemCount: 10, // this is a hardcoded value
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            '${items[2]}',
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .bodyText1,
+                          ),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.only(top: 8.0),
+                                child: Table(columnWidths: {
                                   0: FlexColumnWidth(3),
                                   1: FlexColumnWidth(20),
                                   2: FlexColumnWidth(10),
@@ -88,11 +139,10 @@ class BoxOfficeHome extends StatelessWidget {
                                   TableRow(children: <Widget>[
                                     TableCell(
                                         child: Padding(
-                                            padding: EdgeInsets.only(
-                                                right: 8.0),
-                                            child: Text('${index + 1}.',
-                                                textAlign:
-                                                TextAlign.end))),
+                                            padding:
+                                            EdgeInsets.only(right: 8.0),
+                                            child: Text('${index + 1}',
+                                                textAlign: TextAlign.end))),
                                     TableCell(
                                         child: Text(
                                           '${model.items[index].title}',
@@ -104,147 +154,43 @@ class BoxOfficeHome extends StatelessWidget {
                                                 model.items[index].boxOffice)}',
                                             textAlign: TextAlign.end))
                                   ])
-                                ])
-                                    : Text('$index. Нет информации'),
+                                ]),
                               );
                             },
-                            itemCount: 20, // this is a hardcoded value
+                            itemCount: model.items
+                                .length, // this is a hardcoded value
                           ),
                         ],
                       ),
-                    );
-                  },
-                  itemCount: items.length, // this is a hardcoded value
-                )));
-  }
+                    ),
 
-  ListView _buildLV(context, model, child) {
-    return ListView(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            children: <Widget>[
-              Text(
-                '${items[0]}',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .bodyText1,
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: ClampingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(top: 8.0),
-                    child: Text('$index. Нет информации'),
-                  );
-                },
-                itemCount: 10, // this is a hardcoded value
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            children: <Widget>[
-              Text(
-                '${items[1]}',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .bodyText1,
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: ClampingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(top: 8.0),
-                    child: Table(columnWidths: {
-                      0: FlexColumnWidth(3),
-                      1: FlexColumnWidth(20),
-                      2: FlexColumnWidth(10),
-                    }, children: <TableRow>[
-                      TableRow(children: <Widget>[
-                        TableCell(
-                            child: Padding(
-                                padding: EdgeInsets.only(right: 8.0),
-                                child: Text('${index + 1}.',
-                                    textAlign: TextAlign.end))),
-                        TableCell(
-                            child: Text(
-                              '${model.items[index].title}',
-                              textAlign: TextAlign.start,
-                            )),
-                        TableCell(
-                            child: Text(
-                                '${decimalFormatter.format(
-                                    model.items[index].boxOffice)}',
-                                textAlign: TextAlign.end))
-                      ])
-                    ]),
-                  );
-                },
-                itemCount: 10, // this is a hardcoded value
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            children: <Widget>[
-              Text(
-                '${items[2]}',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .bodyText1,
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: ClampingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(top: 8.0),
-                    child: Text('$index. Нет информации'),
-                  );
-                },
-                itemCount: 10, // this is a hardcoded value
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            children: <Widget>[
-              Text(
-                '${items[3]}',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .bodyText1,
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: ClampingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(top: 8.0),
-                    child: Text('$index. Нет информации'),
-                  );
-                },
-                itemCount: 10, // this is a hardcoded value
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
+                    Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            '${items[3]}',
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .bodyText1,
+                          ),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.only(top: 8.0),
+                                child: Text('$index. Нет информации'),
+                              );
+                            },
+                            itemCount: 10, // this is a hardcoded value
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )));
   }
 }
 
