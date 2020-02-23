@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'dart:math';
 import 'dart:developer' as developer;
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +22,9 @@ class BoxOfficeHomeModel with ChangeNotifier {
   List<Thursday> thursdays;
   StreamSubscription<QuerySnapshot> thursdaySub;
 
+  List<Weekend> weekends;
+  StreamSubscription<QuerySnapshot> weekendSub;
+
   final KbApi kb = KbApi();
 
   BoxOfficeHomeModel() {
@@ -36,8 +39,41 @@ class BoxOfficeHomeModel with ChangeNotifier {
       final List<Thursday> thursdays = snapshot.documents
           .map((documentSnapshot) => Thursday.fromMap(documentSnapshot.data))
           .toList();
-      developer.log('THURSADY: ${thursdays}');
       this.thursdays = thursdays;
+      if (this.thursdays != null && this.thursdays.length > 0) {
+        var diff = DateTime.now().difference(this.thursdays[0].lastUpdated);
+        developer.log(
+            '${DateTime.now()} - ${this.thursdays[0].lastUpdated} = ${diff
+                .inHours}');
+        if (diff.inHours.abs() > 24) {
+          kb.getThursdaysv2().then((data) =>
+              data.forEach((element) {
+                db.createThursday(element);
+              }));
+        }
+      }
+
+      notifyListeners();
+    });
+
+    weekendSub?.cancel();
+    weekendSub = db.getWeekendList().listen((QuerySnapshot snapshot) {
+      final List<Weekend> weekends = snapshot.documents
+          .map((documentSnapshot) => Weekend.fromMap(documentSnapshot.data))
+          .toList();
+      this.weekends = weekends;
+      if (this.weekends != null && this.weekends.length > 0) {
+        var diff = DateTime.now().difference(this.weekends[0].lastUpdated);
+        developer.log(
+            '${DateTime.now()} - ${this.weekends[0].lastUpdated} = ${diff
+                .inHours}');
+        if (diff.inHours.abs() > 24) {
+          kb.getWeekendsv2().then((data) =>
+              data.forEach((element) {
+                db.createWeekend(element);
+              }));
+        }
+      }
       notifyListeners();
     });
 
@@ -50,16 +86,12 @@ class BoxOfficeHomeModel with ChangeNotifier {
       this.items = years;
       notifyListeners();
     });
-
-    kb.getThursdaysv2().then((data) =>
-        data.forEach((element) {
-          db.createThursday(element);
-        }));
   }
 
   @override
   void dispose() {
     thursdaySub?.cancel();
+    weekendSub?.cancel();
     yearSub?.cancel();
     super.dispose();
   }
@@ -82,7 +114,7 @@ class BoxOfficeHome extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           Text(
-                            '${items[0]} - ${model.thursdays != null ? model
+                            '${items[0]} ${model.thursdays != null ? model
                                 .thursdays[0]?.title : ''}',
                             style: Theme
                                 .of(context)
@@ -103,13 +135,13 @@ class BoxOfficeHome extends StatelessWidget {
                         ],
                       ),
                     ),
-
                     Padding(
                       padding: EdgeInsets.all(16.0),
                       child: Column(
                         children: <Widget>[
                           Text(
-                            '${items[1]}',
+                            '${items[1]} ${model.weekends != null ? model
+                                .weekends[0]?.title : ''}',
                             style: Theme
                                 .of(context)
                                 .textTheme
@@ -129,7 +161,6 @@ class BoxOfficeHome extends StatelessWidget {
                         ],
                       ),
                     ),
-
                     Padding(
                       padding: EdgeInsets.all(16.0),
                       child: Column(
@@ -173,13 +204,12 @@ class BoxOfficeHome extends StatelessWidget {
                                 ]),
                               );
                             },
-                            itemCount: model.items
-                                .length, // this is a hardcoded value
+                            itemCount:
+                            model.items.length, // this is a hardcoded value
                           ),
                         ],
                       ),
                     ),
-
                     Padding(
                       padding: EdgeInsets.all(16.0),
                       child: Column(

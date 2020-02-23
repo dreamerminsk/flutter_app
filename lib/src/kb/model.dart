@@ -205,6 +205,55 @@ class YearRecord {
   }
 }
 
+class Weekend {
+  String _id;
+  DateTime date;
+  String kbRef;
+  String title;
+  int boxOffice;
+  DateTime lastUpdated;
+
+  Weekend({this.date, this.kbRef, this.title, this.boxOffice})
+      : this.lastUpdated = DateTime.now();
+
+  Weekend.map(dynamic obj) {
+    developer.log('map.date ${obj['date'].runtimeType}');
+    this.date = obj['date'];
+    this.kbRef = obj['kbRef'];
+    this.title = obj['title'];
+    this.boxOffice = obj['boxOffice'];
+    developer.log('map.lastUpdated ${obj['lastUpdated'].runtimeType}');
+    this.lastUpdated = obj['lastUpdated'];
+  }
+
+  String get id => _id;
+
+  Map<String, dynamic> toMap() {
+    var map = new Map<String, dynamic>();
+    if (_id != null) {
+      map['id'] = _id;
+    }
+    map['date'] = this.date;
+    map['kbRef'] = this.kbRef;
+    map['title'] = this.title;
+    map['boxOffice'] = this.boxOffice;
+    map['lastUpdated'] = this.lastUpdated;
+
+    return map;
+  }
+
+  Weekend.fromMap(Map<String, dynamic> map) {
+    this._id = map['id'];
+    developer.log('fromMap.date ${map['date'].runtimeType}');
+    this.date = map['date'].toDate();
+    this.kbRef = map['kbRef'];
+    this.title = map['title'];
+    this.boxOffice = map['boxOffice'];
+    developer.log('fromMap.lastUpdated ${map['lastUpdated'].runtimeType}');
+    this.lastUpdated = map['lastUpdated'].toDate();
+  }
+}
+
 class WeekendRecord {
   int pos;
   String title;

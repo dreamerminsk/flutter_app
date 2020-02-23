@@ -8,6 +8,9 @@ Firestore.instance.collection('boxoffice_years');
 final CollectionReference thursdayCollection =
 Firestore.instance.collection('thursdays');
 
+final CollectionReference weekendCollection =
+Firestore.instance.collection('weekends');
+
 final CollectionReference workerCollection =
 Firestore.instance.collection('workers');
 
@@ -44,6 +47,41 @@ class FirestoreService {
   Stream<QuerySnapshot> getThursdayList({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots =
     thursdayCollection.orderBy('date', descending: true).snapshots();
+
+    if (offset != null) {
+      snapshots = snapshots.skip(offset);
+    }
+
+    if (limit != null) {
+      snapshots = snapshots.take(limit);
+    }
+
+    return snapshots;
+  }
+
+  Future<Weekend> createWeekend(Weekend weekend) async {
+    final TransactionHandler createTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds = await tx
+          .get(weekendCollection.document(isoFormatter.format(weekend.date)));
+
+      final Map<String, dynamic> data = weekend.toMap();
+
+      await tx.set(ds.reference, data);
+
+      return data;
+    };
+
+    return Firestore.instance.runTransaction(createTransaction).then((mapData) {
+      return Weekend.fromMap(mapData);
+    }).catchError((error) {
+      print('error: $error');
+      return null;
+    });
+  }
+
+  Stream<QuerySnapshot> getWeekendList({int offset, int limit}) {
+    Stream<QuerySnapshot> snapshots =
+    weekendCollection.orderBy('date', descending: true).snapshots();
 
     if (offset != null) {
       snapshots = snapshots.skip(offset);

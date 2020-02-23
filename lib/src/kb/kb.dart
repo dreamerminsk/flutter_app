@@ -86,6 +86,33 @@ class KbApi {
     }
   }
 
+  Future<List<Weekend>> getWeekendsv2() async {
+    try {
+      String url = '$weekendBoxOffice';
+      var response = await dio.get(url);
+      var document = parse(response.data.toString());
+      List<dom.Element> rows =
+      document.querySelectorAll('table.calendar_year > tbody > tr');
+      var ds = rows.map((item) => _parseWeekend(item)).toList();
+      return ds;
+    } catch (exception) {
+      developer.log(exception.toString());
+      return <Weekend>[];
+    }
+  }
+
+  Weekend _parseWeekend(dom.Element e) {
+    var children = e.getElementsByTagName('td');
+    var thursdayRef = children[0].querySelector('center > a');
+    var parts = thursdayRef.attributes['href'].trim().split("/");
+    return Weekend(
+      date: fullDateFormatter.parse(parts[parts.length - 2]),
+      kbRef: thursdayRef.attributes['href'],
+      title: thursdayRef.text.trim(),
+      boxOffice: parseInt(children[1].text),
+    );
+  }
+
   Future<List<WeekendRecord>> getWeekendBoxOffice(DateTime day) async {
     try {
       String url =
