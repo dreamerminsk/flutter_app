@@ -62,6 +62,7 @@ class BoxOfficeHomeModel with ChangeNotifier {
           .map((documentSnapshot) => Weekend.fromMap(documentSnapshot.data))
           .toList();
       this.weekends = weekends;
+      developer.log('${this.weekends}');
       if (this.weekends != null && this.weekends.length > 0) {
         var diff = DateTime.now().difference(this.weekends[0].lastUpdated);
         developer.log(
